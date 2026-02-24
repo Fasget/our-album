@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цифровой альбом</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Обложка -->
+    <div class="cover" id="cover">
+        <h1>Мой Альбом</h1>
+        <p>Ваша надпись здесь</p>
+        <button id="start-album">Открыть</button>
+    </div>
+
+    <!-- Шапка -->
+    <div class="header" id="header" style="display:none;">
+        <h1>Photo Album</h1>
+        <div id="mode-switch">
+            <button id="flip-mode">📖 Перелистывание</button>
+            <button id="grid-mode">⊞ Плитка</button>
+        </div>
+    </div>
+
+    <!-- Сцена книги -->
+    <div id="book-scene" style="display:none;">
+        <div id="album-pages">
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_0320.JPG" alt="IMG_0320">
+                        <p>Это мы!</p>
+                    </div>
+                    
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_0504.JPG" alt="IMG_0504">
+                        <p>А это малышка</p>
+                    </div>
+                    <div class="doodle" style="left: 12%; top: 48%;">✨</div>
+                    <div class="note bottom-left rotate">Маленькие радости</div>
+                    <div class="sticker top-right">❄️</div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_0505.JPG" alt="IMG_0505">
+                        <p>И это малышка</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_0534.JPG" alt="IMG_0534">
+                        <p>А это зайка!</p>
+                    </div>
+                
+                    <div class="doodle" style="left: 12%; top: 48%;">✨</div>
+                    <div class="note bottom-left rotate">Маленькие радости</div>
+                    <div class="sticker top-right">❄️</div>
+                </div>
+            </div>
+
+            <!-- Страница 1 -->
+            <div class="page">
+                <div class="page-content">
+
+                    <div class="polaroid" style="margin-left: -4%">
+                        <img src="assets/photo/IMG_6968.JPG" alt="IMG_6968">
+                        <p>Вид, который хочется запомнить.</p>
+                    </div>
+
+                    <div class="polaroid" style="align-self: flex-start; margin-left: -2%">
+                        <img src="assets/photo/IMG_7258.JPG" alt="IMG_7258">
+                        <p>Мы и золотой свет заката.</p>
+                    </div>
+                    <div class="note top-right">Детство ☀️</div>
+                    <div class="sticker" style="right: 15%; top: 80%;">🌸</div>
+                    <div class="note bottom-left small">Начало нашей истории</div>
+                    <div class="write" style="right: 1%; top: 35%; max-width: 35%; line-height: 1.5em;">В 2024 году, в декабре по программе "Больше чем путешествие" мы смогли поехать в один далекий город - Перьм. Ехали на двух поездах. Обратно на одном.</div>
+                </div>
+            </div>
+
+            <!-- Страница 2 -->
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6949.JPG" alt="IMG_6949">
+                        <p>Смеёмся даже в мороз.</p>
+                    </div>
+                    
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_7107.JPG" alt="IMG_7107">
+                        <p>Солнечный день среди снега.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_7343.JPG" alt="IMG_7343">
+                        <p>Праздник в глазах.</p>
+                    </div>
+                    <div class="doodle" style="left: 12%; top: 48%;">✨</div>
+                    <div class="note bottom-left rotate">Маленькие радости</div>
+                    <div class="sticker top-right">❄️</div>
+                </div>
+            </div>
+            <!-- Страница 1/1 -->
+            <div class="page">
+                <div class="page-content">
+
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_7355.JPG" alt="IMG_7355">
+                        <p>Счастье в простых моментах.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_7495.WEBP" alt="IMG_7495">
+                        <p>Поцелуй, который запомнился.</p>
+                    </div>
+                    <div class="note top-right">Детство ☀️</div>
+                    <div class="sticker" style="right: 15%; top: 45%;">🌸</div>
+                    <div class="note bottom-left small">Начало нашей истории</div>
+                </div>
+            </div>
+            <!-- Страница 2/2 -->
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6980.JPG" alt="IMG_6980">
+                        <p>Холодный ветер и ясное небо.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_7319.JPG" alt="IMG_7319">
+                        <p>Будущее выглядит интересно.</p>
+                    </div>
+                    <div class="doodle" style="left: 12%; top: 48%;">✨</div>
+                    <div class="note bottom-left rotate">Маленькие радости</div>
+                    <div class="sticker top-right">❄️</div>
+                </div>
+            </div>
+
+            <!-- Страница 3 -->
+            <div class="page">
+                <div class="page-content">
+
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6558.JPG" alt="IMG_6558">
+                        <p>Маленький праздник среди будней.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6862.JPG" alt="IMG_6862">
+                        <p>Ужин, разговоры и смех.</p>
+                    </div>
+                    <div class="stamp top-left">★</div>
+                    <div class="note" style="right: 10%; top: 50%; transform: rotate(8deg);">Вместе вкуснее 🍽️</div>
+                </div>
+            </div>
+
+            <!-- Страница 4 -->
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6866.JPG" alt="IMG_6866">
+                        <p>Просто ты — без фильтров.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6561.JPG" alt="IMG_6561">
+                        <p>Тёплый свет и спокойствие.</p>
+                    </div>
+                    <div class="sticker" style="left: 8%; top: 45%;">💕</div>
+                    <div class="note bottom-right small">Настоящая красота</div>
+                    <div class="doodle top-right">♥</div>
+                </div>
+            </div>
+
+            <!-- Страница 5 -->
+            <div class="page">
+                <div class="page-content">
+
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6470.WEBP" alt="IMG_6470">
+                        <p>Момент, который важнее слов.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6468.WEBP" alt="IMG_6468">
+                        <p>Там, где всё кажется проще.</p>
+                    </div>
+                    <div class="sticker top-left">🎈</div>
+                    <div class="note" style="right: 12%; top: 48%;">Каждый день — праздник</div>
+                    <div class="doodle bottom-left">✨</div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_8945.JPG" alt="IMG_8945">
+                        <p>Йоу.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_8966.JPG" alt="IMG_8966">
+                        <p>Ага Ага.</p>
+                    </div>
+                    <div class="sticker top-left">🎈</div>
+                    <div class="note" style="right: 12%; top: 48%;">Каждый день — праздник</div>
+                    <div class="doodle bottom-left">✨</div>
+                </div>
+            </div>
+
+            <!-- Страница 6 -->
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_2661.JPG" alt="IMG_2661">
+                        <p>Смешные очки и хорошее настроение.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_0576.JPG" alt="IMG_0576">
+                        <p>Зайка.</p>
+                    </div>
+                    <div class="note top-right rotate">Бесценные мгновения</div>
+                    <div class="sticker" style="left: 15%; top: 52%;">💫</div>
+                    <div class="stamp bottom-right">♥</div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_8368.JPG" alt="IMG_8368">
+                        <p>Подарки</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_0764.JPG" alt="IMG_0764">
+                        <p>Малышка.</p>
+                    </div>
+                    <div class="note top-right rotate">Бесценные мгновения</div>
+                    <div class="sticker" style="left: 15%; top: 52%;">💫</div>
+                    <div class="stamp bottom-right">♥</div>
+                </div>
+            </div>
+
+            <!-- Страница 7 -->
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_7661.JPG" alt="IMG_7661">
+                        <p>Холодно снаружи, тепло внутри.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_7706.JPG" alt="IMG_7706">
+                        <p>Лёгкость в каждом шаге.</p>
+                    </div>
+                    <div class="sticker top-left">❤️</div>
+                    <div class="sticker" style="right: 10%; top: 45%;">🔥</div>
+                    <div class="note bottom-right">Ты — моё тепло</div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_3074.JPG" alt="IMG_3074">
+                        <p>Крутые.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_3078.JPG" alt="IMG_3078">
+                        <p>Бесценные воспоминания.</p>
+                    </div>
+                    <div class="sticker top-left">❤️</div>
+                    <div class="sticker" style="right: 10%; top: 45%;">🔥</div>
+                    <div class="note bottom-right">Ты — моё тепло</div>
+                </div>
+            </div>
+
+            <!-- Страница 8 -->
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6372.JPG" alt="IMG_6372">
+                        <p>Компания, которая греет.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6375.JPEG" alt="IMG_6375">
+                        <p>Тёплый вечер и мы рядом.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_6369.JPG" alt="IMG_6369">
+                        <p>Летний вечер без спешки.</p>
+                    </div>
+                    <div class="sticker" style="left: 12%; top: 48%;">💋</div>
+                    <div class="note top-right">Love is in the air</div>
+                    <div class="doodle bottom-left">♥ ♥ ♥</div>
+                </div>
+            </div>
+
+            <!-- Страница 9 -->
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_8354.JPG" alt="IMG_8354">
+                        <p>Свет делает нас ярче.</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_8479.JPG" alt="IMG_8479">
+                        <p>Моя Королева</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_8504.JPG" alt="IMG_8504">
+                        <p>Зайка</p>
+                    </div>
+                    <div class="sticker top-left">🎉</div>
+                    <div class="note" style="right: 15%; top: 50%; transform: rotate(-5deg);">С тобой всё впереди</div>
+                    <div class="sticker bottom-right">🌟</div>
+                </div>
+            </div>
+
+            <!-- Страница 10 -->
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_2461.JPG" alt="IMG_2461">
+                        <p>С Новой</p>
+                    </div>
+                    <div class="polaroid">
+                        <img src="assets/photo/IMG_1469.JPG" alt="IMG_1469">
+                        <p>Годай!</p>
+                    </div>
+                    <div class="sticker top-right">🌅</div>
+                    <div class="note" style="left: 10%; top: 48%;">Золотые часы с тобой</div>
+                    <div class="doodle bottom-right">☀️</div>
+                </div>
+            </div>
+
+                        <!-- Страница 12 -->
+            <div class="page">
+                <div class="page-content">
+                    <div class="sticker" style="top: 15%; left: 50%; transform: translateX(-50%);">💕❣️💖</div>
+                    <div class="note" style="top: 25%; left: 50%; transform: translateX(-50%); font-size: 4rem; background: rgba(255, 248, 220, 0.9); padding: 8px 16px;">
+                        Мы самые счастливые
+                    </div>
+                    <div class="sticker bottom-left">🌸</div>
+                    <div class="sticker bottom-right">🌸</div>
+                    <div class="doodle" style="bottom: 50%; left: 10%;">♥</div>
+                    <div class="doodle" style="bottom: 50%; right: 10%;">♥</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Сетка -->
+    <div id="grid-container" class="grid-mode" style="display:none;"></div>
+
+    <!-- Полноэкранный просмотр фото -->
+    <div id="photo-lightbox">
+        <div class="close-btn">×</div>
+        <img src="" alt="">
+        <div class="caption"></div>
+    </div>
+
+    <script src="js/page-flip.browser.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

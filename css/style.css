@@ -1,0 +1,757 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora&family=Caveat:wght@400;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Lora', serif;
+  background-color: #3a0000;
+  color: #f5e6d3;
+  overflow: hidden; /* JS переключает на auto в режиме плитки */
+}
+
+/* ═══ Шапка ═══ */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 2rem;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-wrap: wrap;
+  gap: 10px;
+  position: relative;
+  z-index: 200;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #f5e6d3;
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+#mode-switch { display: flex; gap: 10px; }
+
+#mode-switch button {
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  background: transparent;
+  color: #f5e6d3;
+  font-family: 'Lora', serif;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+#mode-switch button:hover,
+#mode-switch button.active {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* ═══ Обложка ═══ */
+.cover {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(ellipse at center, #7a0000 0%, #2a0000 100%);
+  text-align: center;
+  padding: 2rem;
+}
+
+.cover h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.06em;
+}
+
+.cover p {
+  font-size: 1.1rem;
+  opacity: 0.75;
+  margin: 0 0 2rem;
+}
+
+.cover button {
+  padding: 12px 36px;
+  border: 2px solid #f5e6d3;
+  border-radius: 30px;
+  background: transparent;
+  color: #f5e6d3;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.cover button:hover {
+  background: #f5e6d3;
+  color: #3a0000;
+}
+
+/* ═══ Сцена книги ═══ */
+#book-scene {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  background: radial-gradient(ellipse at center, #5a0a0a 0%, #2a0000 100%);
+  overflow: hidden;
+  /* высота задаётся из JS */
+}
+
+/* ═══ PageFlip контейнер ═══ */
+#album-pages {
+  position: relative;
+  /* ширина и высота задаются из JS */
+
+  /* Тень всей книги */
+  filter: drop-shadow(0 12px 40px rgba(0,0,0,0.75));
+
+  /* Края книги — скетчбук */
+}
+
+/* Левый край */
+#album-pages::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 12px;
+  z-index: 60;
+  pointer-events: none;
+  background: linear-gradient(to right,
+    rgba(0,0,0,0.5) 0%,
+    rgba(0,0,0,0.15) 70%,
+    transparent 100%
+  );
+  border-left: 2px solid rgba(0,0,0,0.35);
+  border-radius: 3px 0 0 3px;
+}
+
+/* Правый край */
+#album-pages::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 12px;
+  z-index: 60;
+  pointer-events: none;
+  background: linear-gradient(to left,
+    rgba(0,0,0,0.5) 0%,
+    rgba(0,0,0,0.15) 70%,
+    transparent 100%
+  );
+  border-right: 2px solid rgba(0,0,0,0.35);
+  border-radius: 0 3px 3px 0;
+}
+
+/* Внутреннее содержимое страницы */
+.page-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start; /* Теперь не по центру */
+  padding: 24px 28px 24px 36px;
+  gap: 16px;
+  position: relative;
+
+  /* Бумага скетчбука */
+  background-color: #f0ead8;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 31px,
+      rgba(180,160,120,0.3) 31px,
+      rgba(180,160,120,0.3) 32px
+    );
+
+  /* Красная линия поля */
+  border-left: 2px solid rgba(200, 80, 80, 0.28);
+}
+
+/* Зигзаг: на нечётных страницах 1-я слева, 2-я справа */
+.page:nth-child(odd) .page-content .polaroid:nth-child(1) {
+  align-self: flex-start;
+  margin-left: 5%;
+}
+
+.page:nth-child(odd) .page-content .polaroid:nth-child(2) {
+  align-self: flex-end;
+  margin-right: 5%;
+}
+
+/* На чётных страницах наоборот: 1-я справа, 2-я слева */
+.page:nth-child(even) .page-content .polaroid:nth-child(1) {
+  align-self: flex-end;
+  margin-right: 5%;
+}
+
+.page:nth-child(even) .page-content .polaroid:nth-child(2) {
+  align-self: flex-start;
+  margin-left: 5%;
+}
+
+/* Номер страницы */
+.page-content::after {
+  content: attr(data-page);
+  position: absolute;
+  bottom: 10px;
+  right: 16px;
+  font-family: 'Lora', serif;
+  font-size: 0.7rem;
+  color: rgba(120,100,70,0.45);
+  font-style: italic;
+}
+
+/* ═══ Поляроиды ═══ */
+.polaroid {
+  background: #fff;
+  padding: 10px 10px 36px;
+  width: 65%; /* Уменьшили с 44% чтобы было больше места */
+  max-width: 320px;
+  text-align: center;
+  border-radius: 2px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.1);
+  transform: rotate(var(--r, 0deg));
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.polaroid:nth-child(1) { --r: -2.5deg; }
+.polaroid:nth-child(2) { --r:  2deg; }
+.polaroid:nth-child(2) { --r:  1.5deg; }
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.polaroid img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 1px;
+}
+
+.polaroid p {
+  margin: 8px 0 0;
+  font-size: 0.72rem;
+  color: #555;
+  font-family: 'Lora', serif;
+  font-style: italic;
+}
+
+/* ═══ Режим плитки ═══ */
+#grid-container.grid-mode {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+  gap: 24px;
+  padding: 40px;
+  background: #3a0000;
+  min-height: 100vh; /* скролл работает через body */
+}
+
+#grid-container .polaroid {
+  width: 100% !important;
+  max-width: none !important;
+  transform: none !important;
+  padding: 15px 15px 55px;
+}
+
+#grid-container .polaroid:hover {
+  transform: scale(1.02) !important;
+}
+
+#grid-container .polaroid img { aspect-ratio: 4 / 3.8; }
+
+#grid-container .polaroid p {
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+
+/* ═══ Адаптив для смартфонов ═══ */
+@media (max-width: 699px) {
+  /* Шапка компактнее */
+  .header {
+    padding: 0.5rem 1rem;
+    gap: 6px;
+  }
+  .header h1 { font-size: 1.1rem; }
+  #mode-switch button { padding: 5px 10px; font-size: 0.75rem; }
+
+  /* В портрете одна страница — края не нужны */
+  #album-pages::before,
+  #album-pages::after { display: none; }
+
+  #album-pages {
+    filter: drop-shadow(0 6px 20px rgba(0,0,0,0.6));
+  }
+
+  .page-content {
+    padding: 18px 18px 18px 28px;
+    gap: 12px;
+  }
+
+  /* Поляроиды меньше в портрете — умещаются на странице */
+  .page-content .polaroid {
+    width: 50% !important;
+    max-width: 140px !important;
+    padding: 6px 6px 24px !important;
+  }
+
+  .page-content .polaroid p {
+    font-size: 0.6rem !important;
+    margin-top: 4px !important;
+  }
+
+  /* Плитка — 1 столбец */
+  #grid-container.grid-mode {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ НА СТРАНИЦАХ
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* Общие стили для всех декоров */
+.note, .sticker, .doodle, .stamp, .write {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ═══ НАДПИСИ (.note) ═══ */
+.note {
+  font-family: 'Caveat', 'Lora', cursive;
+  font-size: 1rem;
+  color: #8b4513;
+  background: rgba(255, 248, 220, 0.75);
+  padding: 4px 10px;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  white-space: nowrap;
+}
+
+.note.small {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+}
+
+.note.rotate {
+  transform: rotate(-3deg);
+}
+.write {
+color: #3a0000;
+font-family: 'Lora', serif;
+font-style: italic;
+}
+/* ═══ СТИКЕРЫ/ЭМОДЗИ (.sticker) ═══ */
+.sticker {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+/* ═══ РИСУНКИ/КАРАКУЛИ (.doodle) ═══ */
+.doodle {
+  font-size: 1.5rem;
+  color: rgba(139, 69, 19, 0.5);
+  font-weight: bold;
+}
+
+/* ═══ ШТАМПЫ (.stamp) ═══ */
+.stamp {
+  font-size: 2.5rem;
+  color: rgba(200, 80, 80, 0.3);
+  transform: rotate(-12deg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ПОЗИЦИИ (используй вместе с типом, например: class="note top-right")
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* Верх */
+.top-left {
+  top: 8px;
+  left: 12px;
+}
+
+.top-right {
+  top: 8px;
+  right: 12px;
+}
+
+.top-center {
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Низ */
+.bottom-left {
+  bottom: 8px;
+  left: 12px;
+}
+
+.bottom-right {
+  bottom: 8px;
+  right: 12px;
+}
+
+.bottom-center {
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Бока */
+.left {
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left center;
+}
+
+.right {
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: right center;
+}
+
+/* Центр */
+.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ═══ Адаптив для декора ═══ */
+@media (max-width: 699px) {
+  .note { font-size: 0.7rem; padding: 2px 6px; }
+  .note.small { font-size: 0.55rem; }
+  .sticker { font-size: 1.2rem; }
+  .doodle { font-size: 1rem; }
+  .stamp { font-size: 1.5rem; }
+  .write { font-size: 1.5rem; }
+}
+
+/* ═══ Дополнительные позиции для декора между фотками ═══ */
+
+/* Между фотками справа (для нечётных страниц) */
+.between-right {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+}
+
+/* Между фотками слева (для чётных страниц) */
+.between-left {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+}
+
+/* Под верхним фото */
+.below-top {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Над нижним фото */
+.above-bottom {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   СТРАНИЦЫ С ТРЕМЯ ПОЛЯРОИДАМИ
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* Layout для 3 фото */
+.page-content:has(.polaroid:nth-child(3)) {
+  flex-wrap: wrap;
+  justify-content: space-around; /* Равномерное распределение */
+  align-items: flex-start;
+}
+
+/* Размер фото (БЕЗ !important на margin) */
+.page-content:has(.polaroid:nth-child(3)) .polaroid {
+  width: 50% !important;
+  max-width: 280px !important;
+}
+
+/* Зигзаг для 3 фото */
+.page:has(.polaroid:nth-child(3)) .page-content .polaroid:nth-child(1) {
+  align-self: flex-start;   /* Слева */
+  margin-left: 2%;
+  margin-right: 0;
+}
+
+.page:has(.polaroid:nth-child(3)) .page-content .polaroid:nth-child(2) {
+  align-self: center;        /* По центру */
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.page:has(.polaroid:nth-child(3)) .page-content .polaroid:nth-child(3) {
+  align-self: flex-end;      /* Справа */
+  margin-left: 0;
+  margin-right: 2%;
+}
+.page:nth-child(even) .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(1) {
+  align-self: flex-start;   /* Слева */
+  margin-left: -2%;
+  margin-right: 2%;
+}
+.page:nth-child(even) .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(2) {
+  align-self: flex-start;   /* Слева */
+  margin-left: -2%;
+  margin-right: 2%;
+}
+.page:nth-child(even) .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(3) {
+  align-self: flex-start;   /* Слева */
+  margin-left: -2%;
+  margin-right: 2%;
+}
+
+/* Мобильная версия: три фото вертикально */
+@media (max-width: 699px) {
+  .page-content:has(.polaroid:nth-child(3)) {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .page-content:has(.polaroid:nth-child(3)) .polaroid {
+    width: 70% !important;
+    max-width: 200px !important;
+    margin: 6px 0 !important;
+  }
+}
+/* ═══════════════════════════════════════════════════════════════════════════
+   СТРАНИЦЫ С четырия ПОЛЯРОИДАМИ
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* Layout для 3 фото */
+.page-content:has(.polaroid:nth-child(4)) {
+  flex-wrap: wrap;
+  justify-content: space-around; /* Равномерное распределение */
+  align-items: flex-start;
+}
+
+/* Размер фото (БЕЗ !important на margin) */
+.page-content:has(.polaroid:nth-child(4)) .polaroid {
+  width: 50% !important;
+  max-width: 280px !important;
+}
+
+/* Зигзаг для 3 фото */
+.page:has(.polaroid:nth-child(4)) .page-content .polaroid:nth-child(1) {
+  align-self: flex-start;   /* Слева */
+  margin-left: -4%;
+  margin-right: 0;
+}
+
+.page:has(.polaroid:nth-child(4)) .page-content .polaroid:nth-child(2) {
+  align-self: flex-start;        /* По центру */
+  margin-left: -4%;
+  margin-right: 0;
+}
+
+.page:has(.polaroid:nth-child(4)) .page-content .polaroid:nth-child(3) {
+  align-self: flex-end;        /* По центру */
+  margin-left: 2%;
+  margin-right: 0%;
+}
+
+.page:has(.polaroid:nth-child(4)) .page-content .polaroid:nth-child(4) {
+  align-self: flex-end;        /* По центру */
+  margin-left: 2%;
+  margin-right: 0%;
+}
+
+/* Мобильная версия: три фото вертикально */
+@media (max-width: 699px) {
+  .page-content:has(.polaroid:nth-child(3)) {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .page-content:has(.polaroid:nth-child(3)) .polaroid {
+    width: 70% !important;
+    max-width: 200px !important;
+    margin: 6px 0 !important;
+  }
+}
+/* ═══════════════════════════════════════════════════════════════════════════
+   ПОЛНОЭКРАННЫЙ ПРОСМОТР ФОТО (LIGHTBOX)
+═══════════════════════════════════════════════════════════════════════════ */
+
+#photo-lightbox {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+  animation: fadeIn 0.25s ease;
+}
+
+#photo-lightbox.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#photo-lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  cursor: default;
+  animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zoomIn {
+  from { 
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Кнопка закрытия */
+#photo-lightbox .close-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: white;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
+}
+
+#photo-lightbox .close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.1);
+}
+
+/* Подпись под фото */
+#photo-lightbox .caption {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: #f5e6d3;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  backdrop-filter: blur(10px);
+  max-width: 80%;
+  text-align: center;
+}
+
+/* Курсор увеличения на поляроидах */
+.page-content .polaroid {
+  cursor: zoom-in;
+}
+
+.page-content .polaroid:hover::after {
+  content: '🔍';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.2rem;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Адаптив для lightbox */
+@media (max-width: 699px) {
+  #photo-lightbox img {
+    max-width: 95vw;
+    max-height: 85vh;
+  }
+  
+  #photo-lightbox .close-btn {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  #photo-lightbox .caption {
+    bottom: 20px;
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+}
+
+/* Фикс для мобильных тачей */
+.page-content .polaroid img {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: auto;
+  position: relative;
+  z-index: 5;
+}
+
+/* На мобиле показываем иконку увеличения постоянно */
+@media (max-width: 699px) {
+  .page-content .polaroid::before {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 1rem;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 6;
+  }
+  
+  .page-content .polaroid:hover::after {
+    display: none;
+  }
+}
