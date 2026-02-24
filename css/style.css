@@ -535,17 +535,44 @@ font-style: italic;
   margin-right: 2%;
 }
 
-/* Мобильная версия: три фото вертикально */
+/* ═══ МОБИЛЬНАЯ ВЕРСИЯ: 3 фото зигзагом слева-справа-слева ═══ */
 @media (max-width: 699px) {
+  /* Контейнер - вертикальный */
   .page-content:has(.polaroid:nth-child(3)) {
-    flex-direction: column;
-    align-items: center;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    position: relative !important;
   }
   
+  /* Уменьшаем фото */
   .page-content:has(.polaroid:nth-child(3)) .polaroid {
-    width: 70% !important;
-    max-width: 200px !important;
-    margin: 6px 0 !important;
+    width: 43% !important;
+    max-width: 150px !important;
+    position: relative !important;
+  }
+  
+  /* ЗИГЗАГ С НАЛОЖЕНИЕМ */
+  
+  /* Фото 1 - СЛЕВА */
+  .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(1) {
+    align-self: flex-start !important;
+    margin: 8px 0 0 3% !important;
+    z-index: 1 !important;
+  }
+  
+  /* Фото 2 - СПРАВА (со смещением вверх для наложения) */
+  .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(2) {
+    align-self: flex-end !important;
+    margin: -55px 3% 0 0 !important; /* Отрицательный margin создает наложение */
+    z-index: 2 !important;
+  }
+  
+  /* Фото 3 - СЛЕВА (со смещением вверх для наложения) */
+  .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(3) {
+    align-self: flex-start !important;
+    margin: -50px 0 8px 3% !important; /* Отрицательный margin для наложения */
+    z-index: 1 !important;
   }
 }
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -590,19 +617,6 @@ font-style: italic;
   margin-right: 0%;
 }
 
-/* Мобильная версия: три фото вертикально */
-@media (max-width: 699px) {
-  .page-content:has(.polaroid:nth-child(3)) {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .page-content:has(.polaroid:nth-child(3)) .polaroid {
-    width: 70% !important;
-    max-width: 200px !important;
-    margin: 6px 0 !important;
-  }
-}
 /* ═══════════════════════════════════════════════════════════════════════════
    ПОЛНОЭКРАННЫЙ ПРОСМОТР ФОТО (LIGHTBOX)
 ═══════════════════════════════════════════════════════════════════════════ */
@@ -740,18 +754,3 @@ font-style: italic;
 }
 
 /* На мобиле показываем иконку увеличения постоянно */
-@media (max-width: 699px) {
-  .page-content .polaroid::before {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    font-size: 1rem;
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: 6;
-  }
-  
-  .page-content .polaroid:hover::after {
-    display: none;
-  }
-}
