@@ -167,44 +167,41 @@ body {
   transform: none !important;
 }
 
-/* Левый край книги - только если есть страницы */
-#album-pages:has(.page)::before {
+#album-pages::before,
+#album-pages::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; bottom: 0;
+  top: 0;
+  bottom: 0;
   width: 12px;
   z-index: 60;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+#album-pages::before {
+  left: 0;
   background: linear-gradient(to right,
     rgba(0,0,0,0.5) 0%,
     rgba(0,0,0,0.15) 70%,
-    transparent 100%
-  );
-  border-left: 2px solid rgba(0,0,0,0.35);
-  border-radius: 3px 0 0 3px;
+    transparent 100%);
 }
 
-/* Правый край книги - только если есть страницы */
-#album-pages:has(.page)::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; bottom: 0;
-  width: 12px;
-  z-index: 60;
-  pointer-events: none;
+#album-pages::after {
+  right: 0;
   background: linear-gradient(to left,
     rgba(0,0,0,0.5) 0%,
     rgba(0,0,0,0.15) 70%,
-    transparent 100%
-  );
-  border-right: 2px solid rgba(0,0,0,0.35);
-  border-radius: 0 3px 3px 0;
+    transparent 100%);
 }
 
-/* Убираем тени, если страниц нет */
-#album-pages:not(:has(.page))::before,
-#album-pages:not(:has(.page))::after {
-  display: none;
+#album-pages::before {
+  opacity: var(--show-left, 0);
+}
+
+#album-pages::after {
+  opacity: var(--show-right, 0);
 }
 
 /* Убираем затемнение на пустых местах */
@@ -239,25 +236,27 @@ body {
 }
 
 /* Зигзаг: на нечётных страницах 1-я слева, 2-я справа */
-.page:nth-child(odd) .page-content .polaroid:nth-child(1) {
+.page-odd .page-content .polaroid:nth-child(1) {
   align-self: flex-start;
-  margin-left: 5%;
+  margin-left: 1%;
 }
 
-.page:nth-child(odd) .page-content .polaroid:nth-child(2) {
+.page-odd .page-content .polaroid:nth-child(2) {
   align-self: flex-end;
-  margin-right: 5%;
+  margin-right: 2%;
+  margin-top: -1%;;
 }
 
 /* На чётных страницах наоборот: 1-я справа, 2-я слева */
-.page:nth-child(even) .page-content .polaroid:nth-child(1) {
+.page-even .page-content .polaroid:nth-child(1) {
   align-self: flex-end;
-  margin-right: 5%;
+  margin-right: 1%;
 }
 
-.page:nth-child(even) .page-content .polaroid:nth-child(2) {
+.page-even .page-content .polaroid:nth-child(2) {
   align-self: flex-start;
-  margin-left: 5%;
+  margin-left: 2%;
+  margin-top: -1%;
 }
 
 /* Номер страницы */
@@ -275,8 +274,8 @@ body {
 /* ═══ Поляроиды ═══ */
 .polaroid {
   background: #fff;
-  padding: 10px 10px 36px;
-  width: 65%; /* Уменьшили с 44% чтобы было больше места */
+  padding: 10px 10px 30px;
+  width: 64%; /* Уменьшили с 44% чтобы было больше места */
   max-width: 320px;
   text-align: center;
   border-radius: 2px;
@@ -304,7 +303,7 @@ body {
 
 .polaroid p {
   margin: 8px 0 0;
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   color: #555;
   font-family: 'Lora', serif;
   font-style: italic;

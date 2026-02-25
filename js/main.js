@@ -28,6 +28,29 @@ startBtn.addEventListener('click', () => {
 });
 
 
+// ==================== ФУНКЦИЯ ДЛЯ ОБНОВЛЕНИЯ КЛАССОВ СТРАНИЦ ====================
+function updatePageClasses() {
+  if (!$book) return;
+  
+  const pages = document.querySelectorAll('.page');
+  
+  pages.forEach((page, index) => {
+    // Удаляем старые классы
+    page.classList.remove('page-odd', 'page-even');
+    
+    // Номер страницы в книге (1-индексированный)
+    const pageNumber = index + 1;
+    
+    // Чётная/нечётная страница
+    if (pageNumber % 2 === 1) {
+      page.classList.add('page-odd');
+    } else {
+      page.classList.add('page-even');
+    }
+  });
+}
+
+
 // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 
 function initTurn() {
@@ -40,10 +63,10 @@ function initTurn() {
   let width, height;
 
   if (isMobile) {
-    width  = availableWidth * 0.88;   // мобильная — немного уже
+    width  = availableWidth * 0.88;
     height = availableHeight * 0.92;
   } else {
-    width  = availableWidth * 0.75;   // десктоп — аккуратно уже
+    width  = availableWidth * 0.75;
     height = availableHeight * 0.88;
   }
 
@@ -51,33 +74,62 @@ function initTurn() {
   container.style.height = height + 'px';
 
   const totalPages = container.querySelectorAll('.page').length;
-if (!$book) {
-  $book = $('#album-pages');
 
-  $book.turn({
-    width: width,
-    height: height,
-    display: displayMode,
-    autoCenter: true,
-    gradients: true,
-    acceleration: true,
-    elevation: 50,
-    duration: 600,
-    turnCorners: 'bl,br',
-    page: 1,
-    pages: totalPages
-  });
+  if (!$book) {
 
-  if (isMobile) {
-    // убираем прозрачную обратную сторону страниц сразу
-    container.querySelectorAll('.page').forEach(page => {
-      $(page).css({
-        'background-color': '#f0ead8',
-        'background-image': 'repeating-linear-gradient(to bottom, transparent 0px, transparent 31px, rgba(180,160,120,0.3) 31px, rgba(180,160,120,0.3) 32px)'
-      });
+    $book = $('#album-pages');
+
+    $book.turn({
+      width: width,
+      height: height,
+      display: displayMode,
+      autoCenter: true,
+      gradients: true,
+      acceleration: true,
+      elevation: 50,
+      duration: 600,
+      turnCorners: 'bl,br',
+      page: 1,
+      pages: totalPages
     });
+
+    // 👉 Обновление краёв
+    function updateEdges(page) {
+      const total = $book.turn('pages');
+
+      container.style.setProperty('--show-left',  page > 1 ? 1 : 0);
+      container.style.setProperty('--show-right', page < total ? 1 : 0);
+    }
+
+    // первый запуск - обновляем классы страниц и края
+    setTimeout(() => {
+      updatePageClasses();
+      updateEdges(1);
+    }, 50);
+
+    // при перелистывании
+    $book.bind('turned', function (event, page) {
+      updateEdges(page);
+      updatePageClasses();
+    });
+
+    if (isMobile) {
+      container.querySelectorAll('.page').forEach(page => {
+        $(page).css({
+          'background-color': '#f0ead8',
+          'background-image':
+            'repeating-linear-gradient(to bottom, transparent 0px, transparent 31px, rgba(180,160,120,0.3) 31px, rgba(180,160,120,0.3) 32px)'
+        });
+      });
+    }
+
+  } else {
+
+    $book.turn('size', width, height);
+    $book.turn('display', displayMode);
+    $book.turn('center');
+    updatePageClasses();
   }
-}
 }
 
 
@@ -100,8 +152,14 @@ document.addEventListener('keydown', (e) => {
 
   if (!$book) return;
 
-  if (e.key === 'ArrowRight') $book.turn('next');
-  if (e.key === 'ArrowLeft')  $book.turn('previous');
+  if (e.key === 'ArrowRight') {
+    $book.turn('next');
+    setTimeout(updatePageClasses, 50);
+  }
+  if (e.key === 'ArrowLeft') {
+    $book.turn('previous');
+    setTimeout(updatePageClasses, 50);
+  }
 });
 
 
@@ -134,6 +192,7 @@ flipBtn.addEventListener('click', () => {
 
   if ($book) {
     $book.turn('center');
+    setTimeout(updatePageClasses, 100);
   }
 });
 
