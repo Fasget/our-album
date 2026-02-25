@@ -319,13 +319,15 @@ body {
   padding: 40px;
   background: #3a0000;
   min-height: 100vh; /* скролл работает через body */
+  margin-top: 50px; /* отступ от шапки */
 }
 
 #grid-container .polaroid {
   width: 100% !important;
-  max-width: none !important;
+  max-width: 850px !important;
   transform: none !important;
   padding: 15px 15px 55px;
+  margin: auto !important;
 }
 
 #grid-container .polaroid:hover {
