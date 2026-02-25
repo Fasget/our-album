@@ -24,7 +24,15 @@ body {
   position: relative;
   z-index: 200;
 }
+#album-pages {
+  margin: 0 auto;
+  touch-action: pan-y;
+}
 
+.polaroid img {
+  touch-action: manipulation;
+  cursor: pointer;
+}
 .header h1 {
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
