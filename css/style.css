@@ -573,7 +573,7 @@ font-style: italic;
 /* Зигзаг для 3 фото */
 .page:has(.polaroid:nth-child(3)) .page-content .polaroid:nth-child(1) {
   align-self: flex-start;   /* Слева */
-  margin-left: 2%;
+  margin-left: 0%;
   margin-right: 0;
 }
 
@@ -588,17 +588,17 @@ font-style: italic;
   margin-left: 0;
   margin-right: 2%;
 }
-.page:nth-child(even) .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(1) {
+.page-even .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(1) {
   align-self: flex-start;   /* Слева */
   margin-left: -2%;
   margin-right: 2%;
 }
-.page:nth-child(even) .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(2) {
+.page-even .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(2) {
   align-self: flex-start;   /* Слева */
   margin-left: -2%;
   margin-right: 2%;
 }
-.page:nth-child(even) .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(3) {
+.page-even .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(3) {
   align-self: flex-start;   /* Слева */
   margin-left: -2%;
   margin-right: 2%;

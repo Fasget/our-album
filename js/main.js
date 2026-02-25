@@ -32,20 +32,24 @@ startBtn.addEventListener('click', () => {
 function updatePageClasses() {
   if (!$book) return;
   
-  const pages = document.querySelectorAll('.page');
+  console.log('Updating page classes'); // Для отладки
   
-  pages.forEach((page, index) => {
-    // Удаляем старые классы
-    page.classList.remove('page-odd', 'page-even');
-    
-    // Номер страницы в книге (1-индексированный)
-    const pageNumber = index + 1;
-    
-    // Чётная/нечётная страница
-    if (pageNumber % 2 === 1) {
-      page.classList.add('page-odd');
+  // Проходим циклом по ВСЕМ страницам
+  $('#album-pages .page').each(function() {
+    const $page = $(this);
+    // Берем номер именно этой страницы
+    const pageNum = $page.data('page-number');
+
+    if (!pageNum) return;
+
+    // Убираем старые классы только у ЭТОЙ страницы
+    $page.removeClass('page-odd page-even');
+
+    // Назначаем класс навсегда на основе номера (1,3,5... - odd, 2,4,6... - even)
+    if (pageNum % 2 === 1) {
+      $page.addClass('page-odd');
     } else {
-      page.classList.add('page-even');
+      $page.addClass('page-even');
     }
   });
 }
@@ -74,7 +78,9 @@ function initTurn() {
   container.style.height = height + 'px';
 
   const totalPages = container.querySelectorAll('.page').length;
-
+  $('#album-pages .page').each(function(index) {
+    $(this).attr('data-page-number', index + 1);
+  });
   if (!$book) {
 
     $book = $('#album-pages');
