@@ -617,8 +617,8 @@ font-style: italic;
   
   /* Уменьшаем фото */
   .page-content:has(.polaroid:nth-child(3)) .polaroid {
-    width: 43% !important;
-    max-width: 150px !important;
+    width: 48% !important;
+    max-width: 500px !important;
     position: relative !important;
   }
   
@@ -627,21 +627,21 @@ font-style: italic;
   /* Фото 1 - СЛЕВА */
   .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(1) {
     align-self: flex-start !important;
-    margin: 8px 0 0 3% !important;
+    margin: 8px 0 0 1% !important;
     z-index: 1 !important;
   }
   
   /* Фото 2 - СПРАВА (со смещением вверх для наложения) */
   .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(2) {
     align-self: flex-end !important;
-    margin: -55px 3% 0 0 !important; /* Отрицательный margin создает наложение */
+    margin: -48px 1% 0 0 !important; /* Отрицательный margin создает наложение */
     z-index: 2 !important;
   }
   
   /* Фото 3 - СЛЕВА (со смещением вверх для наложения) */
   .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(3) {
     align-self: flex-start !important;
-    margin: -50px 0 8px 3% !important; /* Отрицательный margin для наложения */
+    margin: -55px 0 8px 1% !important; /* Отрицательный margin для наложения */
     z-index: 1 !important;
   }
 }
@@ -649,7 +649,7 @@ font-style: italic;
    СТРАНИЦЫ С четырия ПОЛЯРОИДАМИ
 ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Layout для 3 фото */
+/* Layout для 4 фото */
 .page-content:has(.polaroid:nth-child(4)) {
   flex-wrap: wrap;
   justify-content: space-around; /* Равномерное распределение */
