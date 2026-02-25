@@ -31,45 +31,53 @@ startBtn.addEventListener('click', () => {
 // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 
 function initTurn() {
-
   const isMobile    = window.innerWidth < 700;
   const displayMode = isMobile ? 'single' : 'double';
 
-  const width = isMobile
-    ? window.innerWidth - 20
-    : window.innerWidth - 100;
+  const availableWidth  = window.innerWidth;
+  const availableHeight = window.innerHeight - headerEl.offsetHeight;
 
-  const height = window.innerHeight - headerEl.offsetHeight - 20;
+  let width, height;
+
+  if (isMobile) {
+    width  = availableWidth * 0.88;   // мобильная — немного уже
+    height = availableHeight * 0.92;
+  } else {
+    width  = availableWidth * 0.75;   // десктоп — аккуратно уже
+    height = availableHeight * 0.88;
+  }
 
   container.style.width  = width + 'px';
   container.style.height = height + 'px';
 
   const totalPages = container.querySelectorAll('.page').length;
+if (!$book) {
+  $book = $('#album-pages');
 
-  if (!$book) {
+  $book.turn({
+    width: width,
+    height: height,
+    display: displayMode,
+    autoCenter: true,
+    gradients: true,
+    acceleration: true,
+    elevation: 50,
+    duration: 600,
+    turnCorners: 'bl,br',
+    page: 1,
+    pages: totalPages
+  });
 
-    $book = $('#album-pages');
-
-    $book.turn({
-      width: width,
-      height: height,
-      display: displayMode,
-      autoCenter: true,
-      gradients: true,
-      acceleration: true,
-      elevation: 50,
-      duration: 600,
-      turnCorners: 'bl,br',
-      page: 1,
-      pages: totalPages   // 🔑 отключает режим "обложки"
+  if (isMobile) {
+    // убираем прозрачную обратную сторону страниц сразу
+    container.querySelectorAll('.page').forEach(page => {
+      $(page).css({
+        'background-color': '#f0ead8',
+        'background-image': 'repeating-linear-gradient(to bottom, transparent 0px, transparent 31px, rgba(180,160,120,0.3) 31px, rgba(180,160,120,0.3) 32px)'
+      });
     });
-
-  } else {
-
-    $book.turn('size', width, height);
-    $book.turn('display', displayMode);
-    $book.turn('center');
   }
+}
 }
 
 

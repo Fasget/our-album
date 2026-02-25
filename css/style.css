@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora&family=Caveat:wght@400;700&display=swap');
-
+:root {
+  --header-height: 64px;
+}
 *, *::before, *::after { box-sizing: border-box; }
 
 body {
@@ -12,16 +14,18 @@ body {
 
 /* ═══ Шапка ═══ */
 .header {
+  height: var(--header-height);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.65rem 2rem;
+  padding: 0 2rem;
   background: rgba(0,0,0,0.4);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
-  flex-wrap: wrap;
-  gap: 10px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 200;
 }
 #album-pages {
@@ -106,29 +110,65 @@ body {
 }
 
 /* ═══ Сцена книги ═══ */
+/* ═══ ОСНОВА СЦЕНЫ КНИГИ ═══ */
+
+
+/* Сцена */
 #book-scene {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
   background: radial-gradient(ellipse at center, #5a0a0a 0%, #2a0000 100%);
   overflow: hidden;
-  /* высота задаётся из JS */
 }
 
-/* ═══ PageFlip контейнер ═══ */
+/* Контейнер книги */
 #album-pages {
   position: relative;
-  /* ширина и высота задаются из JS */
-
-  /* Тень всей книги */
+  margin: 0 auto !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: translateX(0) !important;
+  max-width: 100%;
+  max-height: calc(100vh - var(--header-height) - 20px);
   filter: drop-shadow(0 12px 40px rgba(0,0,0,0.75));
-
-  /* Края книги — скетчбук */
+  overflow: visible !important;
 }
 
-/* Левый край */
-#album-pages::before {
+/* Убираем прозрачную обратную сторону листа */
+.turn-page {
+  background-color: rgb(209, 205, 201) !important;
+}
+
+/* Тени только на активных страницах */
+#album-pages .page.turn-js-page.animated {
+  box-shadow: 0 0 30px rgba(0,0,0,0.5) !important;
+}
+
+/* Фикс для turn.js */
+#album-pages.turn-js {
+  margin: 0 auto !important;
+  transform: none !important;
+}
+
+#album-pages.turn-js .page {
+  transform: none !important;
+}
+
+#album-pages .turn-js-wrapper {
+  margin: 0 auto !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: none !important;
+}
+
+/* Левый край книги - только если есть страницы */
+#album-pages:has(.page)::before {
   content: '';
   position: absolute;
   top: 0; left: 0; bottom: 0;
@@ -144,8 +184,8 @@ body {
   border-radius: 3px 0 0 3px;
 }
 
-/* Правый край */
-#album-pages::after {
+/* Правый край книги - только если есть страницы */
+#album-pages:has(.page)::after {
   content: '';
   position: absolute;
   top: 0; right: 0; bottom: 0;
@@ -161,6 +201,16 @@ body {
   border-radius: 0 3px 3px 0;
 }
 
+/* Убираем тени, если страниц нет */
+#album-pages:not(:has(.page))::before,
+#album-pages:not(:has(.page))::after {
+  display: none;
+}
+
+/* Убираем затемнение на пустых местах */
+#album-pages .turn-js-page {
+  background: transparent !important;
+}
 /* Внутреннее содержимое страницы */
 .page-content {
   width: 100%;
@@ -298,7 +348,17 @@ body {
   }
   .header h1 { font-size: 1.1rem; }
   #mode-switch button { padding: 5px 10px; font-size: 0.75rem; }
-
+  #album-pages .turn-js-page {
+    background-color: #f0ead8 !important; /* цвет «бумаги» */
+    background-image:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 31px,
+        rgba(180,160,120,0.3) 31px,
+        rgba(180,160,120,0.3) 32px
+      ) !important;
+  }
   /* В портрете одна страница — края не нужны */
   #album-pages::before,
   #album-pages::after { display: none; }
@@ -314,8 +374,8 @@ body {
 
   /* Поляроиды меньше в портрете — умещаются на странице */
   .page-content .polaroid {
-    width: 50% !important;
-    max-width: 140px !important;
+    width: 65% !important;
+    max-width: 300px !important;
     padding: 6px 6px 24px !important;
   }
 
