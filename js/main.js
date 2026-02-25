@@ -1,4 +1,5 @@
 let $book = null;
+let allPolaroids = []; // ← добавить
 
 const startBtn      = document.getElementById('start-album');
 const flipBtn       = document.getElementById('flip-mode');
@@ -19,12 +20,17 @@ const lightboxClose   = lightbox.querySelector('.close-btn');
 // ==================== ЗАПУСК ====================
 
 startBtn.addEventListener('click', () => {
+  // Сначала собираем поляроиды — ДО initTurn
+  allPolaroids = Array.from(
+    document.querySelectorAll('#album-pages .page .polaroid')
+  ).map(p => p.cloneNode(true));
+
   coverEl.style.display   = 'none';
   headerEl.style.display  = 'flex';
   bookScene.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 
-  initTurn();
+  initTurn(); // только после сбора
 });
 
 
@@ -172,16 +178,13 @@ document.addEventListener('keydown', (e) => {
 // ==================== GRID ====================
 
 gridBtn.addEventListener('click', () => {
-
   bookScene.style.display = 'none';
   flipBtn.classList.remove('active');
   gridBtn.classList.add('active');
   document.body.style.overflow = 'auto';
 
   if (!gridContainer.children.length) {
-    document.querySelectorAll('.page .polaroid').forEach(p => {
-      gridContainer.appendChild(p.cloneNode(true));
-    });
+    allPolaroids.forEach(p => gridContainer.appendChild(p)); // ← используем сохранённый массив
   }
 
   gridContainer.style.display = 'grid';

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Цифровой альбом</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -27,32 +28,42 @@
     <!-- Сцена книги -->
     <div id="book-scene" style="display:none;">
         <div id="album-pages">
+            
+            <!-- СТРАНИЦА 1: ОБЛОЖКА -->
             <div class="page">
                 <div class="page-content">
-
-                    <div class="note top-right">Детство ☀️</div>
-                    <div class="sticker" style="right: 15%; top: 80%;">🌸</div>
-                    <div class="note bottom-left small">Начало нашей истории</div>
-                    <div class="write" style="top: 35%; left: 60%; transform: translate(-50%, -50%); width: 80%; line-height: 1.5em; font-size: clamp(20px, 2.2vw, 22px);">Альбом Нашей Любьви.</div>
+                    <div class="years bottom-center">2024-2025</div>
+                    <div class="write" style="font-style: normal; top: 35%; left: 50%; transform: translate(-50%, -50%); width: 80%; line-height: 1.5em; font-size: clamp(35px, 2.5vw, 35px); text-align: center;">
+                        ГЛАВА 1
+                    </div>
+                    <div class="write" style="font-family: 'Great Vibes', cursive; top: 40%; left: 50%; transform: translate(-50%, -50%); width: 80%; line-height: 1.5em; font-size: clamp(25px, 1.8vw, 25px); text-align: center;">
+                        Начало нашей истории...
+                    </div>
                 </div>
             </div>
+
+            <!-- РАЗВОРОТ 1: СТРАНИЦА 2 - Зайка и Малышка -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
                         <img src="assets/photo/IMG_0320.JPG" alt="IMG_0320">
                         <p>Это мы!</p>
                     </div>
-                    
                     <div class="polaroid">
                         <img src="assets/photo/IMG_0504.JPG" alt="IMG_0504">
                         <p>А это малышка</p>
                     </div>
-                    <div class="doodle" style="left: 12%; top: 48%;">✨</div>
-                    <div class="note bottom-left rotate">Маленькие радости</div>
-                    <div class="sticker top-right">❄️</div>
+                    <div class="write2" style="left: 7%; top: 20%; max-width: 40%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        Зайка и Малышка.<br>Игорь и Юля.
+                    </div>
+                    <div class="write" style="right: 3%; top: 57%; max-width: 40%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        Два человека, которые нашли друг друга и теперь создают свою историю, полную смеха, приключений и тёплых моментов.
+                    </div>
+                    <div class="sticker top-right">💕</div>
                 </div>
             </div>
 
+            <!-- РАЗВОРОТ 1: СТРАНИЦА 3 -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
@@ -63,174 +74,216 @@
                         <img src="assets/photo/IMG_0534.JPG" alt="IMG_0534">
                         <p>А это зайка!</p>
                     </div>
-                
                     <div class="doodle" style="left: 12%; top: 48%;">✨</div>
-                    <div class="note bottom-left rotate">Маленькие радости</div>
-                    <div class="sticker top-right">❄️</div>
+                    <div class="note bottom-left rotate">Каждый день — маленькое приключение</div>
+                    <div class="sticker top-left">❤️</div>
                 </div>
             </div>
 
-            <!-- Страница 1 -->
+            <!-- РАЗВОРОТ 2: СТРАНИЦА 4 - Пермь -->
             <div class="page">
-                <div class="page-content">
-
-                    <div class="polaroid" style="align-self: flex-start; margin-left: -1%">
-                        <img src="assets/photo/IMG_6968.JPG" alt="IMG_6968">
-                        <p>Вид, который хочется запомнить.</p>
+                <div class="page-content kraft-layout">
+                    <div class="page-handtitle">
+                        <span class="marker-underline">Программа «Больше чем путешествие»</span>
                     </div>
 
-                    <div class="polaroid" style="align-self: flex-start; margin-left: -1%">
-                        <img src="assets/photo/IMG_7258.JPG" alt="IMG_7258">
-                        <p>Мы и золотой свет заката.</p>
+                    <div class="kraft-row">
+                        <div class="polaroid">
+                            <img src="assets/photo/IMG_6968.JPG" alt="IMG_6968">
+                            <p>Счастье рядом</p>
+                        </div>
+                        <div class="city-arrow-block">
+                            <img src="assets/photo/city-arrow.svg" alt="Казань → Пермь" style="width: 100%; max-width: 160px;">
+                        </div>
                     </div>
-                    <div class="note top-right">Детство ☀️</div>
-                    <div class="sticker" style="right: 15%; top: 80%;">🌸</div>
-                    <div class="note bottom-left small">Начало нашей истории</div>
-                    <div class="write" style="right: 1%; top: 35%; max-width: 35%; line-height: 1.5em; font-size: clamp(14px, 2.2vw, 22px);">В 2024 году, в декабре по программе "Больше чем путешествие" мы смогли поехать в один далекий город - Перьм. Ехали на двух поездах. Обратно на одном.</div>
+
+                    <div class="page-banner">Долгая дорога в поезде.</div>
+
+                    <div class="kraft-row">
+                        <div class="polaroid">
+                            <img src="assets/photo/IMG_7258.JPG" alt="IMG_7258">
+                            <p>Мы и золотой свет заката</p>
+                            <span class="polaroid-date">27 нояб. 2024 г. • 11:23</span>
+                        </div>
+                        <div class="kraft-aside">
+                            <div class="kraft-aside-text">
+                                Море впечатлений<br><br>
+                                Незабываемые эмоции<br><br>
+                                Памятные улочки
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page-footer-date">Декабрь 2024г.</div>
                 </div>
             </div>
 
-            <!-- Страница 2 -->
+           <!-- РАЗВОРОТ 2: СТРАНИЦА 5 - Пермь продолжение -->
             <div class="page">
                 <div class="page-content">
+
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6949.JPG" alt="IMG_6949">
-                        <p>Смеёмся даже в мороз.</p>
+                        <p>Смеёмся даже в мороз</p>
                     </div>
-                    
                     <div class="polaroid">
                         <img src="assets/photo/IMG_7107.JPG" alt="IMG_7107">
-                        <p>Солнечный день среди снега.</p>
+                        <p>Солнечный день среди снега</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_7343.JPG" alt="IMG_7343">
-                        <p>Праздник в глазах.</p>
+                        <p>Праздник в глазах</p>
                     </div>
-                    <div class="doodle" style="left: 12%; top: 48%;">✨</div>
-                    <div class="note bottom-left rotate">Маленькие радости</div>
-                    <div class="sticker top-right">❄️</div>
+                    <div class="write" style="right: 2%; top: 10%; max-width: 42%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        Пермь — это было незабываемо <span style="color:#2d7a2d;">⛰️</span>
+                    </div>
+                    <div class="write" style="left: 3%; top: 42%; max-width: 40%; line-height: 1.4em; font-size: clamp(13px, 1.4vw, 15px);">
+                        Мы поехали в далёкий город Пермь.<br><br>
+                        Два поезда туда, один обратно 🚂
+                    </div>
+                    <div class="sticker bottom-left">❄️</div>
                 </div>
             </div>
-            <!-- Страница 1/1 -->
+
+            <!-- РАЗВОРОТ 3: СТРАНИЦА 6 - Пермь -->
             <div class="page">
                 <div class="page-content">
-
                     <div class="polaroid">
                         <img src="assets/photo/IMG_7355.JPG" alt="IMG_7355">
-                        <p>Счастье в простых моментах.</p>
+                        <p>Счастье в простых моментах</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_7495.WEBP" alt="IMG_7495">
-                        <p>Поцелуй, который запомнился.</p>
+                        <p>Поцелуй, который запомнился</p>
                     </div>
-                    <div class="note top-right">Детство ☀️</div>
-                    <div class="sticker" style="right: 15%; top: 45%;">🌸</div>
-                    <div class="note bottom-left small">Начало нашей истории</div>
+                    <div class="write" style="right: 5%; top: 52%; max-width: 40%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        Холодная зима, тёплые объятия.<br><br>
+                        Когда рядом любимый человек, даже мороз кажется приятным приключением! 💙
+                    </div>
+                    <div class="sticker top-left">🌨️</div>
                 </div>
             </div>
-            <!-- Страница 2/2 -->
+
+            <!-- РАЗВОРОТ 3: СТРАНИЦА 7 -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6980.JPG" alt="IMG_6980">
-                        <p>Холодный ветер и ясное небо.</p>
+                        <p>Холодный ветер и ясное небо</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_7319.JPG" alt="IMG_7319">
-                        <p>Будущее выглядит интересно.</p>
+                        <p>Будущее выглядит интересно</p>
                     </div>
-                    <div class="doodle" style="left: 12%; top: 48%;">✨</div>
-                    <div class="note bottom-left rotate">Маленькие радости</div>
-                    <div class="sticker top-right">❄️</div>
+                    <div class="doodle" style="left: 10%; top: 48%;">✨</div>
+                    <div class="note bottom-right rotate">Вместе тепло</div>
+                    <div class="sticker top-right">☃️</div>
                 </div>
             </div>
 
-            <!-- Страница 3 -->
+            <!-- РАЗВОРОТ 4: СТРАНИЦА 8 - Еда -->
             <div class="page">
                 <div class="page-content">
-
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6558.JPG" alt="IMG_6558">
-                        <p>Маленький праздник среди будней.</p>
+                        <p>Маленький праздник среди будней</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6862.JPG" alt="IMG_6862">
-                        <p>Ужин, разговоры и смех.</p>
+                        <p>Ужин, разговоры и смех</p>
                     </div>
-                    <div class="stamp top-left">★</div>
-                    <div class="note" style="right: 10%; top: 50%; transform: rotate(8deg);">Вместе вкуснее 🍽️</div>
+                    <div class="write2" style="left: 5%; top: 15%; max-width: 42%; line-height: 1.4em; font-size: clamp(12px, 1.8vw, 18px);">
+                        Мы обожаем вкусно покушать! 🍽️<br>
+                        </div>
+                    <div class="write" style="left: 5%; top: 23%; max-width: 42%; line-height: 1.4em; font-size: clamp(12px, 1.8vw, 18px);">
+                        По Чесноку, Чито Гврито, Грузинские Истории (где мы даже работали!), Хорошая Девочка, Сулугуни, Хачепури Марико...<br>
+                        И ещё много-много вкусных мест! 😋
+                    </div>
+                    <div class="sticker bottom-right">🍕</div>
                 </div>
             </div>
 
-            <!-- Страница 4 -->
+            <!-- РАЗВОРОТ 4: СТРАНИЦА 9 -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6866.JPG" alt="IMG_6866">
-                        <p>Просто ты — без фильтров.</p>
+                        <p>Просто ты — без фильтров</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6561.JPG" alt="IMG_6561">
-                        <p>Тёплый свет и спокойствие.</p>
+                        <p>Тёплый свет и спокойствие</p>
                     </div>
-                    <div class="sticker" style="left: 8%; top: 45%;">💕</div>
-                    <div class="note bottom-right small">Настоящая красота</div>
-                    <div class="doodle top-right">♥</div>
+                    <div class="sticker" style="left: 8%; top: 45%;">🍜</div>
+                    <div class="note bottom-right">Лучшие моменты за столом 💕</div>
+                    <div class="sticker top-right">🥂</div>
                 </div>
             </div>
 
-            <!-- Страница 5 -->
+            <!-- РАЗВОРОТ 5: СТРАНИЦА 10 - Свадьбы -->
             <div class="page">
                 <div class="page-content">
-
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6470.WEBP" alt="IMG_6470">
-                        <p>Момент, который важнее слов.</p>
+                        <p>Момент, который важнее слов</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6468.WEBP" alt="IMG_6468">
-                        <p>Там, где всё кажется проще.</p>
+                        <p>Там, где всё кажется проще</p>
                     </div>
-                    <div class="sticker top-left">🎈</div>
-                    <div class="note" style="right: 12%; top: 48%;">Каждый день — праздник</div>
-                    <div class="doodle bottom-left">✨</div>
+                    <div class="write2" style="right: 10%; top: 52%; max-width: 40%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        Свадьбы наших друзей! 💒
+                    </div>
+                    <div class="write" style="right: 2%; top: 58%; max-width: 40%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        Ирина и Миша.<br>
+                        Ангелина и Максим.<br><br>
+                        Счастье в глазах молодожёнов и радость быть частью их праздника! 🎉
+                    </div>
+                    <div class="sticker top-left">💍</div>
                 </div>
             </div>
 
+            <!-- РАЗВОРОТ 5: СТРАНИЦА 11 - ДР Дианы -->
             <div class="page">
                 <div class="page-content">
-
                     <div class="polaroid">
                         <img src="assets/photo/IMG_8945.JPG" alt="IMG_8945">
-                        <p>Йоу.</p>
+                        <p>Йоу</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_8966.JPG" alt="IMG_8966">
-                        <p>Ага Ага.</p>
+                        <p>Ага Ага</p>
                     </div>
-                    <div class="sticker top-left">🎈</div>
-                    <div class="note" style="right: 12%; top: 48%;">Каждый день — праздник</div>
-                    <div class="doodle bottom-left">✨</div>
+                    <div class="write" style="left: 4%; top: 52%; max-width: 40%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        День рождения Дианы в стиле 80-90-х! 🎸<br><br>
+                        Неоновые цвета, ретро-музыка и атмосфера беззаботного веселья! 🕺💃
+                    </div>
+                    <div class="sticker top-right">🎵</div>
+                    <div class="sticker bottom-left">🎤</div>
                 </div>
             </div>
 
-            <!-- Страница 6 -->
+            <!-- РАЗВОРОТ 6: СТРАНИЦА 12 - Прикольные моменты -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
                         <img src="assets/photo/IMG_2661.JPG" alt="IMG_2661">
-                        <p>Смешные очки и хорошее настроение.</p>
+                        <p>Смешные очки и хорошее настроение</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_0576.JPG" alt="IMG_0576">
-                        <p>Зайка.</p>
+                        <p>Зайка</p>
                     </div>
-                    <div class="note top-right rotate">Бесценные мгновения</div>
-                    <div class="sticker" style="left: 15%; top: 52%;">💫</div>
+                    <div class="write" style="right: 2%; top: 52%; max-width: 40%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        Просто прикольные моменты! 😄<br><br>
+                        Те самые смешные фотки, которые согревают душу и заставляют улыбаться! 📸
+                    </div>
+                    <div class="sticker top-left">😂</div>
                     <div class="stamp bottom-right">♥</div>
                 </div>
             </div>
 
+            <!-- РАЗВОРОТ 6: СТРАНИЦА 13 -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
@@ -239,74 +292,80 @@
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_0764.JPG" alt="IMG_0764">
-                        <p>Малышка.</p>
+                        <p>Малышка</p>
                     </div>
-                    <div class="note top-right rotate">Бесценные мгновения</div>
+                    <div class="note top-right rotate">Жизнь — это весело! 🎊</div>
                     <div class="sticker" style="left: 15%; top: 52%;">💫</div>
-                    <div class="stamp bottom-right">♥</div>
+                    <div class="doodle bottom-left">♥</div>
                 </div>
             </div>
 
-            <!-- Страница 7 -->
+            <!-- РАЗВОРОТ 7: СТРАНИЦА 14 - Зимние приключения -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
                         <img src="assets/photo/IMG_7661.JPG" alt="IMG_7661">
-                        <p>Холодно снаружи, тепло внутри.</p>
+                        <p>Холодно снаружи, тепло внутри</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_7706.JPG" alt="IMG_7706">
-                        <p>Лёгкость в каждом шаге.</p>
+                        <p>Лёгкость в каждом шаге</p>
                     </div>
-                    <div class="sticker top-left">❤️</div>
-                    <div class="sticker" style="right: 10%; top: 45%;">🔥</div>
-                    <div class="note bottom-right">Ты — моё тепло</div>
+                    <div class="write" style="left: 5%; top: 20%; max-width: 42%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        Зимние приключения! ⛸️<br><br>
+                        Голубые озёра — невероятная красота природы.<br>
+                        Каток — смех, падения и тёплые руки! 💙
+                    </div>
+                    <div class="sticker top-right">❄️</div>
                 </div>
             </div>
 
+            <!-- РАЗВОРОТ 7: СТРАНИЦА 15 -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
                         <img src="assets/photo/IMG_3074.JPG" alt="IMG_3074">
-                        <p>Крутые.</p>
+                        <p>Крутые</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_3078.JPG" alt="IMG_3078">
-                        <p>Бесценные воспоминания.</p>
+                        <p>Бесценные воспоминания</p>
                     </div>
-                    <div class="sticker top-left">❤️</div>
-                    <div class="sticker" style="right: 10%; top: 45%;">🔥</div>
-                    <div class="note bottom-right">Ты — моё тепло</div>
+                    <div class="sticker top-left">⛸️</div>
+                    <div class="note bottom-right">Зима — это магия! ✨</div>
+                    <div class="sticker" style="left: 10%; top: 45%;">🌨️</div>
                 </div>
             </div>
 
-            <!-- Страница 8 -->
+            <!-- РАЗВОРОТ 8: СТРАНИЦА 16 - ДР Саши -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6372.JPG" alt="IMG_6372">
-                        <p>Компания, которая греет.</p>
+                        <p>Компания, которая греет</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6375.JPEG" alt="IMG_6375">
-                        <p>Тёплый вечер и мы рядом.</p>
+                        <p>Тёплый вечер и мы рядом</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_6369.JPG" alt="IMG_6369">
-                        <p>Летний вечер без спешки.</p>
+                        <p>Летний вечер без спешки</p>
                     </div>
-                    <div class="sticker" style="left: 12%; top: 48%;">💋</div>
-                    <div class="note top-right">Love is in the air</div>
-                    <div class="doodle bottom-left">♥ ♥ ♥</div>
+                    <div class="write" style="right: 2%; top: 72%; max-width: 40%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        День рождения Саши! 🎂<br><br>
+                        Уютный и весёлый вечер с друзьями, смехом и добрыми словами! 🎉
+                    </div>
+                    <div class="sticker top-left">🎈</div>
                 </div>
             </div>
 
-            <!-- Страница 9 -->
+            <!-- РАЗВОРОТ 8: СТРАНИЦА 17 - Дворец Впечатлений -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
                         <img src="assets/photo/IMG_8354.JPG" alt="IMG_8354">
-                        <p>Свет делает нас ярче.</p>
+                        <p>Свет делает нас ярче</p>
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_8479.JPG" alt="IMG_8479">
@@ -316,13 +375,17 @@
                         <img src="assets/photo/IMG_8504.JPG" alt="IMG_8504">
                         <p>Зайка</p>
                     </div>
-                    <div class="sticker top-left">🎉</div>
-                    <div class="note" style="right: 15%; top: 50%; transform: rotate(-5deg);">С тобой всё впереди</div>
-                    <div class="sticker bottom-right">🌟</div>
+                    <div class="write" style="right: 2%; top: 10%; max-width: 42%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        Поход в Дворец Впечатлений! 🎨<br><br>
+                    </div>
+                    <div class="write" style="right: 2%; top: 75%; max-width: 42%; line-height: 1.4em; font-size: clamp(13px, 1.9vw, 19px);">
+                        Яркие эмоции, интерактивные инсталляции и море восторга! 🌈
+                    </div>
+                    <div class="sticker bottom-right">🎪</div>
                 </div>
             </div>
 
-            <!-- Страница 10 -->
+            <!-- РАЗВОРОТ 9: СТРАНИЦА 18 - Новый год -->
             <div class="page">
                 <div class="page-content">
                     <div class="polaroid">
@@ -331,20 +394,27 @@
                     </div>
                     <div class="polaroid">
                         <img src="assets/photo/IMG_1469.JPG" alt="IMG_1469">
-                        <p>Годай!</p>
+                        <p>Годой!</p>
                     </div>
-                    <div class="sticker top-right">🌅</div>
-                    <div class="note" style="left: 10%; top: 48%;">Золотые часы с тобой</div>
-                    <div class="doodle bottom-right">☀️</div>
+                    <div class="write" style="right: 2%; top: 52%; max-width: 45%; line-height: 1.4em; font-size: clamp(14px, 2vw, 20px);">
+                        Новый Год! 🎄<br><br>
+                        Волшебство, мандарины, шампанское и надежда на лучшее! ✨
+                    </div>
+                    <div class="sticker top-left">🎆</div>
+                    <div class="sticker bottom-left">🥂</div>
                 </div>
             </div>
 
-                        <!-- Страница 12 -->
+            <!-- РАЗВОРОТ 9: СТРАНИЦА 19 - ФИНАЛ -->
             <div class="page">
                 <div class="page-content">
                     <div class="sticker" style="top: 15%; left: 50%; transform: translateX(-50%);">💕❣️💖</div>
                     <div class="note" style="top: 25%; left: 50%; transform: translateX(-50%); font-size: 2rem; background: rgba(214, 210, 124, 0.9); padding: 8px 16px;">
                         Мы самые счастливые
+                    </div>
+                    <div class="write" style="top: 55%; left: 50%; transform: translateX(-50%); max-width: 70%; line-height: 1.5em; font-size: clamp(14px, 1.8vw, 18px); text-align: center;">
+                        И это только начало нашей истории...<br>
+                        Впереди ещё столько приключений! 💫
                     </div>
                     <div class="sticker bottom-left">🌸</div>
                     <div class="sticker bottom-right">🌸</div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora&family=Caveat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora&family=Caveat:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
 :root {
   --header-height: 64px;
 }
@@ -12,6 +12,9 @@ body {
   overflow: hidden; /* JS переключает на auto в режиме плитки */
 }
 
+/*.page {
+  overflow: hidden;
+}*/
 /* ═══ Шапка ═══ */
 .header {
   height: var(--header-height);
@@ -220,19 +223,23 @@ body {
   gap: 16px;
   position: relative;
 
-  /* Бумага скетчбука */
-  background-color: #f0ead8;
+  /* Крафт-бумага */
+  background-color: #c4a47c;
   background-image:
+    url('../assets/photo/cardboard.png'),
     repeating-linear-gradient(
       to bottom,
       transparent 0px,
       transparent 31px,
-      rgba(180,160,120,0.3) 31px,
-      rgba(180,160,120,0.3) 32px
+      rgba(80, 45, 10, 0.22) 31px,
+      rgba(80, 45, 10, 0.22) 32px
     );
+  background-repeat: repeat, repeat;
+  background-size: auto, auto;
+  background-blend-mode: multiply;
 
   /* Красная линия поля */
-  border-left: 2px solid rgba(200, 80, 80, 0.28);
+  border-left: 2px solid rgba(180, 55, 55, 0.38);
 }
 
 /* Зигзаг: на нечётных страницах 1-я слева, 2-я справа */
@@ -255,7 +262,7 @@ body {
 
 .page-even .page-content .polaroid:nth-child(2) {
   align-self: flex-start;
-  margin-left: 2%;
+  margin-left: 1%;
   margin-top: -1%;
 }
 
@@ -275,10 +282,10 @@ body {
 .polaroid {
   background: #fff;
   padding: 10px 10px 30px;
-  width: 64%; /* Уменьшили с 44% чтобы было больше места */
-  max-width: 320px;
+  width: 52%; /* Уменьшили с 44% чтобы было больше места */
+  max-width: 280px;
   text-align: center;
-  border-radius: 2px;
+  border-radius: 1px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.1);
   transform: rotate(var(--r, 0deg));
   transition: transform 0.3s, box-shadow 0.3s;
@@ -286,7 +293,7 @@ body {
 
 .polaroid:nth-child(1) { --r: -2.5deg; }
 .polaroid:nth-child(2) { --r:  2deg; }
-.polaroid:nth-child(2) { --r:  1.5deg; }
+.polaroid:nth-child(3) { --r:  1.5deg; }
 
 .polaroid:hover {
   transform: rotate(0deg) scale(1.05);
@@ -304,9 +311,21 @@ body {
 .polaroid p {
   margin: 8px 0 0;
   font-size: 0.9rem;
-  color: #555;
+  color: #222222;
+  font-family: 'Roboto', system-ui, sans-serif;
+  text-align: left;
+}
+
+.polaroid-date {
+  position: absolute;
+  bottom: 5px;         /* Внутри нижнего отступа (30px) */
+  left: 3%;
+  font-size: 0.3rem;
+  color: #777;
   font-family: 'Lora', serif;
   font-style: italic;
+  opacity: 0.7;
+  z-index: 5;
 }
 
 /* ═══ Режим плитки ═══ */
@@ -340,6 +359,31 @@ body {
   margin-top: 10px;
 }
 
+@media (max-width: 999px) {
+.page-odd .page-content .polaroid:nth-child(1) {
+  align-self: flex-start;
+  margin-left: -6%;
+}
+
+.page-odd .page-content .polaroid:nth-child(2) {
+  align-self: flex-end;
+  margin-right: -6%;
+  margin-top: -1%;;
+}
+
+/* На чётных страницах наоборот: 1-я справа, 2-я слева */
+.page-even .page-content .polaroid:nth-child(1) {
+  align-self: flex-end;
+  margin-right: -6%;
+}
+
+.page-even .page-content .polaroid:nth-child(2) {
+  align-self: flex-start;
+  margin-left:-6%;
+  margin-top: -1%;
+}
+}
+
 /* ═══ Адаптив для смартфонов ═══ */
 @media (max-width: 699px) {
   /* Шапка компактнее */
@@ -366,16 +410,20 @@ body {
 
   #album-pages {
     filter: drop-shadow(0 6px 20px rgba(0,0,0,0.6));
+    max-height: 600px !important;
+    overflow: hidden;
   }
 
   .page-content {
     padding: 18px 18px 18px 28px;
     gap: 12px;
+    max-height: 600px;
+    overflow: hidden;
   }
 
   /* Поляроиды меньше в портрете — умещаются на странице */
   .page-content .polaroid {
-    width: 65% !important;
+    width: 60% !important;
     max-width: 300px !important;
     padding: 6px 6px 24px !important;
   }
@@ -384,7 +432,70 @@ body {
     font-size: 0.6rem !important;
     margin-top: 4px !important;
   }
+  .kraft-row {
+    margin-top: 20px;
+  }
 
+  /* Зигзаг с более сильными смещениями для портрета */
+  .page-odd .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(1) {
+    align-self: flex-start;
+    margin-left: -6%;
+    transform: translateY(2%) rotate(var(--r));
+    z-index: 2;
+  }
+
+  .page-odd .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(2) {
+    align-self: flex-end;
+    margin-right: -3%;
+    transform: translateY(-10%) rotate(var(--r));
+    z-index: 1;
+  }
+  .page-even .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(1) {
+    align-self: flex-end;
+    margin-right: -3%;
+    transform: translateY(2%) rotate(var(--r));
+    z-index: 2;
+  }
+
+  .page-even .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(2) {
+    align-self: flex-start;
+    margin-left:-6%;
+    transform: translateY(-10%) rotate(var(--r));
+    z-index: 1;
+  }
+
+  /*.page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .write,  .write2 {
+    left: 5% !important;
+    right: 5% !important;
+    width: 90% !important;
+    max-width: 90% !important;
+
+    padding: 8px 12px !important;
+
+    font-size: clamp(10px, 2.2vw, 15px) !important;
+    line-height: 1.25em !important;
+
+    background: rgba(240,234,216,0.9) !important;
+    border-radius: 4px;
+
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    text-align: left !important;
+
+    transform: none !important;
+  }
+
+
+  .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .write {
+    top: auto !important;
+    bottom: 3% !important;
+  }
+
+
+  .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .write2 {
+    top: 3% !important;
+    bottom: auto !important;
+  }
+/* /
   /* Плитка — 1 столбец */
   #grid-container.grid-mode {
     grid-template-columns: 1fr;
@@ -398,7 +509,7 @@ body {
 ═══════════════════════════════════════════════════════════════════════════ */
 
 /* Общие стили для всех декоров */
-.note, .sticker, .doodle, .stamp, .write {
+.note, .sticker, .doodle, .stamp, .write, .write2 {
   position: absolute;
   z-index: 10;
   pointer-events: none;
@@ -425,6 +536,11 @@ body {
   transform: rotate(-3deg);
 }
 .write {
+color: #3a0000;
+font-family: 'Lora', serif;
+font-style: italic;
+}
+.write2 {
 color: #3a0000;
 font-family: 'Lora', serif;
 font-style: italic;
@@ -482,7 +598,7 @@ font-style: italic;
 }
 
 .bottom-center {
-  bottom: 8px;
+  bottom: 13px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -511,12 +627,12 @@ font-style: italic;
 
 /* ═══ Адаптив для декора ═══ */
 @media (max-width: 699px) {
-  .note { font-size: 0.7rem; padding: 2px 6px; }
-  .note.small { font-size: 0.55rem; }
-  .sticker { font-size: 1.2rem; }
-  .doodle { font-size: 1rem; }
-  .stamp { font-size: 1.5rem; }
-  .write { font-size: 1.5rem; }
+  .note { font-size: 1rem; padding: 2px 6px; }
+  .note.small { font-size: 0.9rem; }
+  .sticker { font-size: 1.5rem; }
+  .doodle { font-size: 1.5rem; }
+  .stamp { font-size: 1.7rem; }
+  .write { font-size: 1.5rem;}
 }
 
 /* ═══ Дополнительные позиции для декора между фотками ═══ */
@@ -566,8 +682,8 @@ font-style: italic;
 
 /* Размер фото (БЕЗ !important на margin) */
 .page-content:has(.polaroid:nth-child(3)) .polaroid {
-  width: 50% !important;
-  max-width: 280px !important;
+  width: 44% !important;
+  max-width: 240px !important;
 }
 
 /* Зигзаг для 3 фото */
@@ -616,7 +732,7 @@ font-style: italic;
   
   /* Уменьшаем фото */
   .page-content:has(.polaroid:nth-child(3)) .polaroid {
-    width: 48% !important;
+    width: 50% !important;
     max-width: 500px !important;
     position: relative !important;
   }
@@ -626,21 +742,21 @@ font-style: italic;
   /* Фото 1 - СЛЕВА */
   .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(1) {
     align-self: flex-start !important;
-    margin: 8px 0 0 1% !important;
+    margin: 8px 0 6% -2% !important;
     z-index: 1 !important;
   }
   
   /* Фото 2 - СПРАВА (со смещением вверх для наложения) */
   .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(2) {
     align-self: flex-end !important;
-    margin: -48px 1% 0 0 !important; /* Отрицательный margin создает наложение */
+    margin: -65px -2% 7% 0 !important; /* Отрицательный margin создает наложение */
     z-index: 2 !important;
   }
   
   /* Фото 3 - СЛЕВА (со смещением вверх для наложения) */
   .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(3) {
     align-self: flex-start !important;
-    margin: -55px 0 8px 1% !important; /* Отрицательный margin для наложения */
+    margin: -65px 0 9% -2% !important; /* Отрицательный margin для наложения */
     z-index: 1 !important;
   }
 }
@@ -781,6 +897,295 @@ font-style: italic;
 }
 
 .page-content .polaroid:hover::after {
+  content: '🔍';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.2rem;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Адаптив для lightbox */
+@media (max-width: 699px) {
+  #photo-lightbox img {
+    max-width: 95vw;
+    max-height: 85vh;
+  }
+  
+  #photo-lightbox .close-btn {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  #photo-lightbox .caption {
+    bottom: 20px;
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+}
+
+/* Фикс для мобильных тачей */
+.page-content .polaroid img {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: auto;
+  position: relative;
+  z-index: 5;
+}
+
+/* На мобиле показываем иконку увеличения постоянно */
+/* Убираем линии только на реальной первой странице (data-page-number="1") */
+.page[data-page-number="1"] .page-content {
+  background-image: none !important;
+}
+.years {
+  position: absolute;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.7rem;
+  letter-spacing: 2px;
+  font-weight: 500;
+
+  color: rgba(90, 60, 40, 0.85);
+
+  /* эффект тиснения */
+
+  z-index: 10;
+  white-space: nowrap;
+}
+
+@media (max-width: 699px) {
+  .years {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+  }
+}
+/* ═══════════════════════════════════════════════════════════════════════════
+   НОВЫЙ ЛЭЙАУТ: КРАФТ-СТРАНИЦЫ (стиль Перми)
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* Контейнер-строка: фото слева + текст справа */
+.kraft-row {
+  display: flex;
+  flex-direction: row;
+
+  gap: 10px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Поляроид в крафт-стиле (крупнее обычного) */
+.kraft-photo {
+  background: #fff;
+  padding: 8px 8px 28px;
+  flex: 0 0 54%;
+  max-width: 54%;
+  box-shadow: 2px 3px 10px rgba(0,0,0,0.25);
+  transform: rotate(var(--r, -1deg));
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: zoom-in;
+  border-radius: 2px;
+}
+
+.kraft-photo:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 4px 8px 20px rgba(0,0,0,0.3);
+}
+
+.kraft-photo img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+
+.kraft-photo .photo-caption {
+  margin: 6px 0 0;
+  font-size: clamp(10px, 1.1vw, 13px);
+  color: #333;
+  font-family: 'Lora', serif;
+}
+
+.kraft-photo .photo-date {
+  display: block;
+  margin-top: 2px;
+  font-size: clamp(8px, 0.9vw, 11px);
+  color: #888;
+  font-family: 'Lora', serif;
+}
+
+/* Рукописный заголовок страницы */
+.page-handtitle {
+  position: absolute;
+  top: 3%;
+  left: 5%;
+  right: 5%;
+  font-family: 'Lora', serif;
+  font-size: clamp(13px, 1.6vw, 18px);
+  color: #6b1a1a;
+  font-style: italic;
+  line-height: 1.3;
+  z-index: 10;
+}
+
+/* Зелёная маркерная подчёркивающая линия */
+.marker-underline {
+  display: inline;
+  background: linear-gradient(transparent 60%, rgba(40,120,40,0.45) 60%);
+}
+
+/* Блок с названием городов (Казань → Пермь) */
+.city-arrow-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 4px;
+  padding: 6px 4px;
+}
+
+.city-from {
+  font-family: 'Lora', serif;
+  font-size: clamp(18px, 2.5vw, 30px);
+  color: #6b1a1a;
+  font-style: italic;
+  border: 2.5px solid #2d7a2d;
+  border-radius: 50%;
+  padding: 4px 10px;
+  line-height: 1.2;
+  display: inline-block;
+}
+
+.city-arrow {
+  font-size: clamp(18px, 2.2vw, 26px);
+  color: #2d7a2d;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.city-to {
+  font-family: 'Lora', serif;
+  font-size: clamp(22px, 3vw, 38px);
+  color: #6b1a1a;
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Тёмно-красный баннер */
+.page-banner {
+  width: auto;
+  min-width: 60%;
+  margin-left: 15%;
+  margin-right: 0;
+  align-self: flex-start;
+  background: #7a1a1a;
+  color: #f5e6d3;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(12px, 1.7vw, 20px);
+  padding: 8px 28px;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  border-radius: 2px;
+}
+
+/* Текст-список справа от фото */
+.kraft-aside {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding-right: 4px;
+}
+
+.kraft-aside-text {
+  font-family: 'Lora', serif;
+  font-size: clamp(11px, 1.9vw, 22px);
+  color: #6b1a1a;
+  font-style: italic;
+  text-align: right;
+  line-height: 1;
+}
+
+/* Нижняя подпись страницы */
+.page-footer-date {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(11px, 1.4vw, 15px);
+  color: #8b2222;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* Страница в крафт-лэйауте */
+.page-content.kraft-layout {
+  justify-content: flex-start;
+  padding-top: 5%;
+  gap: 8px;
+}
+
+@media (max-width: 699px) {
+  .page-content.kraft-layout {
+    padding-top: 15%;
+  }
+}
+
+/* Адаптив — kraft-row ВСЕГДА горизонтальный */
+@media (max-width: 699px) {
+  /* kraft-row остаётся flex-direction: row, уменьшаем фото */
+  .kraft-photo {
+    flex: 0 0 52%;
+    max-width: 52%;
+  }
+  .city-arrow-block {
+    gap: 2px;
+    padding: 2px;
+  }
+  .city-from { font-size: clamp(15px, 9vw, 35px); padding: 2px 6px; }
+  .city-arrow { font-size: clamp(15px, 9vw, 35px); }
+  .city-to   { font-size: clamp(15px, 9vw, 35px); }
+  .kraft-aside-text { font-size: clamp(15px, 5vw, 35px); }
+  .page-banner { font-size: clamp(10px, 3.2vw, 15px); padding: 7px 16px; }
+  .page-handtitle { font-size: clamp(15px, 5vw, 35px); }
+}
+
+/* ═══ Поляроид внутри kraft-layout: вписывается в kraft-row ═══ */
+.kraft-layout .polaroid {
+  width: 64% !important;
+  max-width: 320px !important;
+  flex: 0 0 auto;
+  align-self: auto !important;
+  margin: 0 !important;
+}
+
+/* Когда два поляроида рядом в kraft-row — каждый занимает ~46% */
+.kraft-row:has(.polaroid + .polaroid) .polaroid {
+  flex: 0 0 46%;
+  width: 46% !important;
+  max-width: 260px !important;
+}
+
+/* На мобиле kraft-row остаётся горизонтальным, масштабируем */
+@media (max-width: 699px) {
+  .kraft-layout .polaroid {
+    flex: 0 0 auto;
+    width: 52% !important;
+  }
+  .kraft-row:has(.polaroid + .polaroid) .polaroid {
+    flex: 0 0 44%;
+    width: 44% !important;
+  }
+}polaroid:hover::after {
   content: '🔍';
   position: absolute;
   top: 8px;

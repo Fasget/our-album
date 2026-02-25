@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 240" width="180" height="240">
+  <style>
+    <![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora&family=Caveat:wght@400;700&display=swap');
+
+      .city-text {
+        font-weight: 700;
+        fill: #6b1a1a;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      
+      .kazan-text {
+        font-size: 34px;
+        font-family: 'Lora', serif;
+      }
+      
+      .perm-text {
+        font-size: 38px;
+        font-family: 'Lora', serif;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+      
+      .hand-drawn-circle {
+        fill: none;
+        stroke: #2d7a2d;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 5 2;
+        opacity: 0.8;
+      }
+      
+      .hand-drawn-circle-inner {
+        fill: none;
+        stroke: #2d7a2d;
+        stroke-width: 1.2;
+        stroke-linecap: round;
+        stroke-dasharray: 7 3;
+        opacity: 0.4;
+      }
+      
+      .arrow {
+        fill: none;
+        stroke: #2d7a2d;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+      }
+    ]]>
+  </style>
+
+  <!-- Внешний неровный круг для Казани (немного увеличен) -->
+  <path class="hand-drawn-circle" d="
+    M 24,40
+    C 17,24 34,8 58,4
+    C 82,0 118,2 138,14
+    C 158,26 162,44 156,60
+    C 150,76 134,88 114,92
+    C 94,96 60,94 40,82
+    C 20,70 18,52 24,40 Z" />
+
+  <!-- Внутренний пунктирный круг (соответственно) -->
+  <path class="hand-drawn-circle-inner" d="
+    M 27,42
+    C 21,28 38,13 60,9
+    C 82,5 114,7 132,18
+    C 150,29 153,46 148,59
+    C 143,72 128,83 110,87
+    C 92,91 64,89 46,79
+    C 28,69 26,56 27,42 Z" />
+
+  <!-- Казань -->
+  <text x="86" y="52" class="city-text kazan-text">Казань</text>
+
+  <!-- Стрелка -->
+  <path class="arrow" d="M 100,96 C 115,118 120,140 108,165" />
+  <path class="arrow" d="M 108,165 C 102,158 104,160 98,152" />
+  <path class="arrow" d="M 108,165 C 116,160 120,152 122,145" />
+
+  <!-- Пермь -->
+  <text x="86" y="205" class="city-text perm-text">Пермь</text>
+</svg>
