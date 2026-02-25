@@ -21,6 +21,7 @@ const pageBuffer = document.createElement('div');
 pageBuffer.style.display = 'none';
 document.body.appendChild(pageBuffer);
 
+// ==================== ЗАПУСК АЛЬБОМА ====================
 startBtn.addEventListener('click', () => {
   coverEl.style.display   = 'none';
   headerEl.style.display  = 'flex';
@@ -29,6 +30,7 @@ startBtn.addEventListener('click', () => {
   initPageFlip();
 });
 
+// ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
 function isMobile() {
   return window.innerWidth < 700;
 }
@@ -61,6 +63,7 @@ function applyContainerSize({ pageW, pageH, portrait, sceneH }) {
   bookScene.style.height = sceneH + 'px';
 }
 
+// ==================== ИНИЦИАЛИЗАЦИЯ PAGE FLIP ====================
 function initPageFlip() {
   const PageFlipClass =
     (window.St && window.St.PageFlip) ||
@@ -71,7 +74,7 @@ function initPageFlip() {
     return;
   }
 
-  // 1. Спасаем .page элементы в буфер ДО destroy
+  // 1. Спасаем .page элементы в буфер до destroy
   const allPages = Array.from(document.querySelectorAll('.page'));
   allPages.forEach(p => pageBuffer.appendChild(p));
 
@@ -112,80 +115,37 @@ function initPageFlip() {
     });
 
     pageFlip.loadFromHTML(freshPages);
-
-    
-    // Добавляем обработчики кликов на поляроиды
-    attachPhotoClickHandlers();
   } catch (e) {
     console.error(e);
     alert('Ошибка: ' + e.message);
   }
 }
 
-// ══════════════════════════════════════════════════════════════════════════
-// LIGHTBOX — ПОЛНОЭКРАННЫЙ ПРОСМОТР
-// ══════════════════════════════════════════════════════════════════════════
+// ==================== ЛАЙТБОКС (ОДИН ОБРАБОТЧИК НА ВСЁ) ====================
+// Единый делегированный обработчик кликов по фото внутри поляроидов
+document.addEventListener('click', (e) => {
+  const img = e.target.closest('.polaroid img');
+  if (!img) return; // клик не по фото
+  openLightbox(img);
+});
 
-// Универсальная функция для добавления обработчиков на одно фото
-function attachLightboxToImage(img) {
-  let touchStartTime = 0;
-  let touchStartX = 0;
-  let touchStartY = 0;
-  
-  // Обработчик кликов для десктопа
-  img.addEventListener('click', (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-     openLightbox(img);
-  });
-  
-  // Touch start - запоминаем время и позицию
-  img.addEventListener('touchstart', (e) => {
-    touchStartTime = Date.now();
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-  
-  // Touch end - проверяем что это тап, а не свайп
-  img.addEventListener('touchend', (e) => {
-    const touchDuration = Date.now() - touchStartTime;
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchEndY = e.changedTouches[0].clientY;
-    const moveX = Math.abs(touchEndX - touchStartX);
-    const moveY = Math.abs(touchEndY - touchStartY);
-    
-    // Если короткий тап (<300ms) и небольшое смещение (<10px) - открываем фото
-    if (touchDuration < 300 && moveX < 10 && moveY < 10) {
-      e.stopPropagation();
-      e.preventDefault();
-      openLightbox(img);
-    }
-  }, { passive: false });
-}
-
-function attachPhotoClickHandlers() {
-  // Обработчики только на поляроиды ВНУТРИ #album-pages (режим перелистывания)
-  const polaroids = document.querySelectorAll('#album-pages .polaroid img');
-  
-  polaroids.forEach(img => attachLightboxToImage(img));
-}
-
+// Открыть лайтбокс
 function openLightbox(imgElement) {
   const src = imgElement.src;
   const alt = imgElement.alt;
-  
-  // Ищем подпись в <p> внутри поляроида
+
   const polaroid = imgElement.closest('.polaroid');
   const caption = polaroid ? polaroid.querySelector('p')?.textContent : alt;
-  
+
   lightboxImg.src = src;
   lightboxImg.alt = alt;
   lightboxCaption.textContent = caption || '';
-  
+
   lightbox.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
+// Закрыть лайтбокс
 function closeLightbox() {
   lightbox.classList.remove('active');
   // Восстанавливаем overflow только если не в режиме плитки
@@ -208,7 +168,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && lightbox.classList.contains('active')) {
     closeLightbox();
   }
-  
+
   // Навигация стрелками (только если lightbox закрыт)
   if (!lightbox.classList.contains('active') && pageFlip) {
     if (e.key === 'ArrowRight') pageFlip.flipNext();
@@ -216,10 +176,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// ══════════════════════════════════════════════════════════════════════════
-// РЕЖИМЫ ПРОСМОТРА
-// ══════════════════════════════════════════════════════════════════════════
-
+// ==================== РЕЖИМЫ ПРОСМОТРА ====================
 gridBtn.addEventListener('click', () => {
   bookScene.style.display = 'none';
   flipBtn.classList.remove('active');
@@ -227,16 +184,10 @@ gridBtn.addEventListener('click', () => {
   document.body.style.overflow = 'auto';
 
   if (!gridContainer.children.length) {
-    // Клонируем поляроиды в плитку
+    // Клонируем поляроиды в плитку (обработчики не нужны – работает делегирование)
     document.querySelectorAll('.page .polaroid').forEach(p => {
       const clonedPolaroid = p.cloneNode(true);
       gridContainer.appendChild(clonedPolaroid);
-      
-      // Добавляем обработчики lightbox к клонированным фото
-      const clonedImg = clonedPolaroid.querySelector('img');
-      if (clonedImg) {
-        attachLightboxToImage(clonedImg);
-      }
     });
   }
   gridContainer.style.display = 'grid';
@@ -251,21 +202,13 @@ flipBtn.addEventListener('click', () => {
   if (pageFlip) pageFlip.update();
 });
 
-// ══════════════════════════════════════════════════════════════════════════
-// РЕСАЙЗ
-// ══════════════════════════════════════════════════════════════════════════
-
-let resizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    if (bookScene.style.display === 'none') return;
-    const sizes = calcBookSize();
-    if (sizes.portrait === currentPortrait) {
-      applyContainerSize(sizes);
-      if (pageFlip) pageFlip.update();
-    } else {
-      initPageFlip();
-    }
-  }, 250);
-});
+// ==================== УЛУЧШЕНИЕ ОТКЛИКА НА МОБИЛЬНЫХ ====================
+// Добавляем CSS-правило через JS (или можно прописать в таблице стилей)
+const style = document.createElement('style');
+style.textContent = `
+  .polaroid img {
+    touch-action: manipulation; /* отключает двойной тап для зума */
+    cursor: pointer;
+  }
+`;
+document.head.appendChild(style);
