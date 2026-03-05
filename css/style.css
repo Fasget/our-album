@@ -255,7 +255,7 @@ body {
 
 .page-even .page-content .polaroid:nth-child(2) {
   align-self: flex-start;
-  margin-left: 2%;
+  margin-left: 1%;
   margin-top: -1%;
 }
 
@@ -338,6 +338,31 @@ body {
 #grid-container .polaroid p {
   font-size: 0.85rem;
   margin-top: 10px;
+}
+
+@media (max-width: 999px) {
+.page-odd .page-content .polaroid:nth-child(1) {
+  align-self: flex-start;
+  margin-left: -6%;
+}
+
+.page-odd .page-content .polaroid:nth-child(2) {
+  align-self: flex-end;
+  margin-right: -6%;
+  margin-top: -1%;;
+}
+
+/* На чётных страницах наоборот: 1-я справа, 2-я слева */
+.page-even .page-content .polaroid:nth-child(1) {
+  align-self: flex-end;
+  margin-right: -6%;
+}
+
+.page-even .page-content .polaroid:nth-child(2) {
+  align-self: flex-start;
+  margin-left:-6%;
+  margin-top: -1%;
+}
 }
 
 /* ═══ Адаптив для смартфонов ═══ */
