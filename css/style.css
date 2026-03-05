@@ -286,7 +286,7 @@ body {
 
 .polaroid:nth-child(1) { --r: -2.5deg; }
 .polaroid:nth-child(2) { --r:  2deg; }
-.polaroid:nth-child(2) { --r:  1.5deg; }
+.polaroid:nth-child(3) { --r:  1.5deg; }
 
 .polaroid:hover {
   transform: rotate(0deg) scale(1.05);
@@ -410,6 +410,66 @@ body {
     margin-top: 4px !important;
   }
 
+  /* Зигзаг с более сильными смещениями для портрета */
+  .page-odd .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(1) {
+    align-self: flex-start;
+    margin-left: -6%;
+    transform: translateY(3%) rotate(var(--r));
+    z-index: 2;
+  }
+
+  .page-odd .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(2) {
+    align-self: flex-end;
+    margin-right: -3%;
+    transform: translateY(-26%) rotate(var(--r));
+    z-index: 1;
+  }
+  .page-even .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(1) {
+    align-self: flex-end;
+    margin-right: -3%;
+    transform: translateY(3%) rotate(var(--r));
+    z-index: 2;
+  }
+
+  .page-even .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(2) {
+    align-self: flex-start;
+    margin-left:-6%;
+    transform: translateY(-26%) rotate(var(--r));
+    z-index: 1;
+  }
+
+  .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .write,  .write2 {
+    left: 5% !important;
+    right: 5% !important;
+    width: 90% !important;
+    max-width: 90% !important;
+
+    padding: 8px 12px !important;
+
+    font-size: clamp(11px, 2.2vw, 15px) !important;
+    line-height: 1.25em !important;
+
+    background: rgba(240,234,216,0.9) !important;
+    border-radius: 4px;
+
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    text-align: left !important;
+
+    transform: none !important;
+  }
+
+  /* текст снизу */
+  .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .write {
+    top: auto !important;
+    bottom: 5% !important;
+  }
+
+  /* текст сверху */
+  .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .write2 {
+    top: 7% !important;
+    bottom: auto !important;
+  }
+
   /* Плитка — 1 столбец */
   #grid-container.grid-mode {
     grid-template-columns: 1fr;
@@ -423,7 +483,7 @@ body {
 ═══════════════════════════════════════════════════════════════════════════ */
 
 /* Общие стили для всех декоров */
-.note, .sticker, .doodle, .stamp, .write {
+.note, .sticker, .doodle, .stamp, .write, .write2 {
   position: absolute;
   z-index: 10;
   pointer-events: none;
@@ -450,6 +510,11 @@ body {
   transform: rotate(-3deg);
 }
 .write {
+color: #3a0000;
+font-family: 'Lora', serif;
+font-style: italic;
+}
+.write2 {
 color: #3a0000;
 font-family: 'Lora', serif;
 font-style: italic;
@@ -541,7 +606,7 @@ font-style: italic;
   .sticker { font-size: 1.2rem; }
   .doodle { font-size: 1rem; }
   .stamp { font-size: 1.5rem; }
-  .write { font-size: 1.5rem; }
+  .write { font-size: 1.5rem;}
 }
 
 /* ═══ Дополнительные позиции для декора между фотками ═══ */
@@ -641,7 +706,7 @@ font-style: italic;
   
   /* Уменьшаем фото */
   .page-content:has(.polaroid:nth-child(3)) .polaroid {
-    width: 48% !important;
+    width: 55% !important;
     max-width: 500px !important;
     position: relative !important;
   }
@@ -651,21 +716,21 @@ font-style: italic;
   /* Фото 1 - СЛЕВА */
   .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(1) {
     align-self: flex-start !important;
-    margin: 8px 0 0 1% !important;
+    margin: 8px 0 5% 1% !important;
     z-index: 1 !important;
   }
   
   /* Фото 2 - СПРАВА (со смещением вверх для наложения) */
   .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(2) {
     align-self: flex-end !important;
-    margin: -48px 1% 0 0 !important; /* Отрицательный margin создает наложение */
+    margin: -65px 1% 7% 0 !important; /* Отрицательный margin создает наложение */
     z-index: 2 !important;
   }
   
   /* Фото 3 - СЛЕВА (со смещением вверх для наложения) */
   .page-content:has(.polaroid:nth-child(3)) .polaroid:nth-child(3) {
     align-self: flex-start !important;
-    margin: -55px 0 8px 1% !important; /* Отрицательный margin для наложения */
+    margin: -65px 0 9% 1% !important; /* Отрицательный margin для наложения */
     z-index: 1 !important;
   }
 }
