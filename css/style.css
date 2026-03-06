@@ -400,7 +400,7 @@ body {
 
   /* Поляроиды меньше в портрете — умещаются на странице */
   .page-content .polaroid {
-    width: 62% !important;
+    width: 60% !important;
     max-width: 300px !important;
     padding: 6px 6px 24px !important;
   }
@@ -414,31 +414,31 @@ body {
   .page-odd .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(1) {
     align-self: flex-start;
     margin-left: -6%;
-    transform: translateY(3%) rotate(var(--r));
+    transform: translateY(2%) rotate(var(--r));
     z-index: 2;
   }
 
   .page-odd .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(2) {
     align-self: flex-end;
     margin-right: -3%;
-    transform: translateY(-14%) rotate(var(--r));
+    transform: translateY(-10%) rotate(var(--r));
     z-index: 1;
   }
   .page-even .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(1) {
     align-self: flex-end;
     margin-right: -3%;
-    transform: translateY(3%) rotate(var(--r));
+    transform: translateY(2%) rotate(var(--r));
     z-index: 2;
   }
 
   .page-even .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .polaroid:nth-child(2) {
     align-self: flex-start;
     margin-left:-6%;
-    transform: translateY(-14%) rotate(var(--r));
+    transform: translateY(-10%) rotate(var(--r));
     z-index: 1;
   }
 
-  .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .write,  .write2 {
+  /*.page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .write,  .write2 {
     left: 5% !important;
     right: 5% !important;
     width: 90% !important;
@@ -458,18 +458,18 @@ body {
     transform: none !important;
   }
 
-  /* текст снизу */
+
   .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .write {
     top: auto !important;
     bottom: 3% !important;
   }
 
-  /* текст сверху */
+
   .page-content:has(.polaroid:nth-child(2)):not(:has(.polaroid:nth-child(3))) .write2 {
     top: 3% !important;
     bottom: auto !important;
   }
-
+/* /
   /* Плитка — 1 столбец */
   #grid-container.grid-mode {
     grid-template-columns: 1fr;
@@ -572,7 +572,7 @@ font-style: italic;
 }
 
 .bottom-center {
-  bottom: 8px;
+  bottom: 13px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -601,11 +601,11 @@ font-style: italic;
 
 /* ═══ Адаптив для декора ═══ */
 @media (max-width: 699px) {
-  .note { font-size: 0.7rem; padding: 2px 6px; }
-  .note.small { font-size: 0.55rem; }
-  .sticker { font-size: 1.2rem; }
-  .doodle { font-size: 1rem; }
-  .stamp { font-size: 1.5rem; }
+  .note { font-size: 1rem; padding: 2px 6px; }
+  .note.small { font-size: 0.9rem; }
+  .sticker { font-size: 1.5rem; }
+  .doodle { font-size: 1.5rem; }
+  .stamp { font-size: 1.7rem; }
   .write { font-size: 1.5rem;}
 }
 
@@ -913,3 +913,28 @@ font-style: italic;
 }
 
 /* На мобиле показываем иконку увеличения постоянно */
+/* Убираем линии только на реальной первой странице (data-page-number="1") */
+.page[data-page-number="1"] .page-content {
+  background-image: none !important;
+}
+.years {
+  position: absolute;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.7rem;
+  letter-spacing: 2px;
+  font-weight: 500;
+
+  color: rgba(90, 60, 40, 0.85);
+
+  /* эффект тиснения */
+
+  z-index: 10;
+  white-space: nowrap;
+}
+
+@media (max-width: 699px) {
+  .years {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+  }
+}
