@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora&family=Caveat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora&family=Caveat:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
 :root {
   --header-height: 64px;
 }
@@ -308,9 +308,9 @@ body {
 .polaroid p {
   margin: 8px 0 0;
   font-size: 0.9rem;
-  color: #555;
-  font-family: 'Lora', serif;
-  font-style: italic;
+  color: #222222;
+  font-family: 'Roboto', system-ui, sans-serif;
+  text-align: left;
 }
 
 .polaroid-date {
@@ -407,11 +407,15 @@ body {
 
   #album-pages {
     filter: drop-shadow(0 6px 20px rgba(0,0,0,0.6));
+    max-height: 600px !important;
+    overflow: hidden;
   }
 
   .page-content {
     padding: 18px 18px 18px 28px;
     gap: 12px;
+    max-height: 600px;
+    overflow: hidden;
   }
 
   /* Поляроиды меньше в портрете — умещаются на странице */
@@ -424,6 +428,9 @@ body {
   .page-content .polaroid p {
     font-size: 0.6rem !important;
     margin-top: 4px !important;
+  }
+  .kraft-row {
+    margin-top: 20px;
   }
 
   /* Зигзаг с более сильными смещениями для портрета */
@@ -1014,7 +1021,7 @@ font-style: italic;
   top: 3%;
   left: 5%;
   right: 5%;
-  font-family: 'Caveat', cursive;
+  font-family: 'Lora', serif;
   font-size: clamp(13px, 1.6vw, 18px);
   color: #6b1a1a;
   font-style: italic;
@@ -1040,7 +1047,7 @@ font-style: italic;
 }
 
 .city-from {
-  font-family: 'Caveat', cursive;
+  font-family: 'Lora', serif;
   font-size: clamp(18px, 2.5vw, 30px);
   color: #6b1a1a;
   font-style: italic;
@@ -1059,7 +1066,7 @@ font-style: italic;
 }
 
 .city-to {
-  font-family: 'Caveat', cursive;
+  font-family: 'Lora', serif;
   font-size: clamp(22px, 3vw, 38px);
   color: #6b1a1a;
   font-style: italic;
@@ -1068,9 +1075,9 @@ font-style: italic;
 
 /* Тёмно-красный баннер */
 .page-banner {
-  /* Не на всю ширину — компактный блок */
   width: auto;
-  margin-left: 0;
+  min-width: 60%;
+  margin-left: 15%;
   margin-right: 0;
   align-self: flex-start;
   background: #7a1a1a;
@@ -1078,10 +1085,10 @@ font-style: italic;
   font-family: 'Lora', serif;
   font-style: italic;
   font-size: clamp(12px, 1.7vw, 20px);
-  padding: 8px 24px;
+  padding: 8px 28px;
   flex-shrink: 0;
   letter-spacing: 0.02em;
-  border-radius: 0,5px;
+  border-radius: 2px;
 }
 
 /* Текст-список справа от фото */
@@ -1095,7 +1102,7 @@ font-style: italic;
 }
 
 .kraft-aside-text {
-  font-family: 'Caveat', cursive;
+  font-family: 'Lora', serif;
   font-size: clamp(11px, 1.9vw, 22px);
   color: #6b1a1a;
   font-style: italic;
@@ -1109,7 +1116,8 @@ font-style: italic;
   bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
-  font-family: 'Caveat', cursive;
+  font-family: 'Lora', serif;
+  font-style: italic;
   font-size: clamp(11px, 1.4vw, 15px);
   color: #8b2222;
   letter-spacing: 0.08em;
@@ -1119,8 +1127,14 @@ font-style: italic;
 /* Страница в крафт-лэйауте */
 .page-content.kraft-layout {
   justify-content: flex-start;
-  padding-top: 18%;
+  padding-top: 8%;
   gap: 8px;
+}
+
+@media (max-width: 699px) {
+  .page-content.kraft-layout {
+    padding-top: 15%;
+  }
 }
 
 /* Адаптив — kraft-row ВСЕГДА горизонтальный */
@@ -1144,10 +1158,9 @@ font-style: italic;
 
 /* ═══ Поляроид внутри kraft-layout: вписывается в kraft-row ═══ */
 .kraft-layout .polaroid {
-  /* Сбрасываем старые flex-позиции, ширину задаёт kraft-row */
-  width: auto !important;
-  max-width: none !important;
-  flex: 0 0 54%;
+  width: 64% !important;
+  max-width: 320px !important;
+  flex: 0 0 auto;
   align-self: auto !important;
   margin: 0 !important;
 }
@@ -1155,14 +1168,18 @@ font-style: italic;
 /* Когда два поляроида рядом в kraft-row — каждый занимает ~46% */
 .kraft-row:has(.polaroid + .polaroid) .polaroid {
   flex: 0 0 46%;
+  width: 46% !important;
+  max-width: 260px !important;
 }
 
 /* На мобиле kraft-row остаётся горизонтальным, масштабируем */
 @media (max-width: 699px) {
   .kraft-layout .polaroid {
-    flex: 0 0 52%;
+    flex: 0 0 auto;
+    width: 52% !important;
   }
   .kraft-row:has(.polaroid + .polaroid) .polaroid {
     flex: 0 0 44%;
+    width: 44% !important;
   }
 }
