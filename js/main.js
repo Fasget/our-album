@@ -171,35 +171,52 @@ document.addEventListener('keydown', (e) => {
 
 // ==================== GRID ====================
 
-gridBtn.addEventListener('click', () => {
+function getAllPagesPhotos() {
+  // Принудительно проходим по всем страницам книги
+  const allPhotos = [];
+  
+  // Получаем общее количество страниц
+  const totalPages = $book ? $book.turn('pages') : document.querySelectorAll('#album-pages .page').length;
+  
+  // Перебираем все номера страниц
+  for (let i = 1; i <= totalPages; i++) {
+    // Получаем страницу по номеру
+    const pageElement = $(`#album-pages .page[data-page-number="${i}"]`);
+    
+    if (pageElement.length) {
+      pageElement.find('.polaroid').each(function() {
+        allPhotos.push(this.cloneNode(true));
+      });
+    }
+  }
+  
+  return allPhotos;
+}
 
+gridBtn.addEventListener('click', () => {
   bookScene.style.display = 'none';
   flipBtn.classList.remove('active');
   gridBtn.classList.add('active');
   document.body.style.overflow = 'auto';
 
-  if (!gridContainer.children.length) {
-    document.querySelectorAll('.page .polaroid').forEach(p => {
-      gridContainer.appendChild(p.cloneNode(true));
+  // Очищаем grid
+  gridContainer.innerHTML = '';
+  
+  // Получаем ВСЕ фото со всех страниц
+  setTimeout(() => {
+    const allPhotos = getAllPagesPhotos();
+    console.log(`Всего фото в книге: ${allPhotos.length}`); // Отладка
+    
+    allPhotos.forEach(photo => {
+      gridContainer.appendChild(photo);
     });
-  }
-
-  gridContainer.style.display = 'grid';
-});
-
-
-flipBtn.addEventListener('click', () => {
-
-  gridContainer.style.display = 'none';
-  gridBtn.classList.remove('active');
-  flipBtn.classList.add('active');
-  document.body.style.overflow = 'hidden';
-  bookScene.style.display = 'flex';
-
-  if ($book) {
-    $book.turn('center');
-    setTimeout(updatePageClasses, 100);
-  }
+    
+    gridContainer.style.display = 'grid';
+    
+    if (allPhotos.length === 0) {
+      console.warn('ВНИМАНИЕ: Фото не найдены! Проверьте структуру HTML.');
+    }
+  }, 300);
 });
 
 
